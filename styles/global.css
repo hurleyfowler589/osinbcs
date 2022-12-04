@@ -1,0 +1,58 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  font-size: 14px;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  height:100%;
+}
+html,body { height: 100%; margin: 0px; padding: 0px; }
+
+body {
+  background-color: var(--backgroundColor);
+  -ms-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+.text-disabled {
+  color: var(--textColorSecondary) !important;
+}
+
+.trigger {
+  padding: 0 24px;
+  font-size: 18px;
+  line-height: 64px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: var(--textPrimary);
+}
+
+.logo {
+  height: 32px;
+  margin: 16px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.site-layout .site-layout-background {
+  background: var(--textWhite)
+}
+
+button, [type="button"], [type="reset"], [type="submit"] {
+  appearance: button;
+  background-color: var(--textPrimary);
+  background-image: none;
+}
