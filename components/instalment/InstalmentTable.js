@@ -1,4 +1,3 @@
-import React from "react";
 import { Space, Table, Tag } from "antd";
 import { GET_POLICIES } from "./query";
 import { useQuery } from "@apollo/client";
@@ -88,5 +87,5 @@ export default function InstalmentTable() {
   const countries = data.countries;
 
 
-  return <Table columns={columns} dataSource={countries} bordered />;
+  return <Table columns={columns} dataSource={countries} bordered className="overflow-auto"/>;
 }

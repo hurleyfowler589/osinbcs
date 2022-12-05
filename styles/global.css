@@ -1,5 +1,4 @@
 
-@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -53,6 +52,5 @@ body {
 
 button, [type="button"], [type="reset"], [type="submit"] {
   appearance: button;
-  background-color: var(--textPrimary);
   background-image: none;
 }
