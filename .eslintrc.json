@@ -1,3 +1,42 @@
 {
-  "extends": ["next/babel", "next/core-web-vitals"]
+  "extends": [
+    "next",
+    "next/core-web-vitals",
+    "eslint:recommended",
+    "plugin:jest/recommended"
+  ],
+  "env": {
+    "es6": true,
+    "jest/globals": true
+  },
+  "rules": {
+    "react/no-unknown-property": [
+      2,
+      {
+        "ignore": [
+          "jsx",
+          "global",
+          "scoped"
+        ]
+      }
+    ],
+    "@next/next/no-img-element": 0,
+    "@next/next/no-css-tags": 0,
+    "@next/next/next-script-for-ga": 0,
+    "@next/next/no-html-link-for-pages": 0,
+    "react/display-name": 0,
+    "react/prop-types": 0,
+    "react/no-unescaped-entities": 0,
+    "react/react-in-jsx-scope": 0,
+    "import/no-unresolved": 0,
+    "react-hooks/rules-of-hooks": "warn",
+    "react-hooks/exhaustive-deps": "warn",
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ]
+  }
 }

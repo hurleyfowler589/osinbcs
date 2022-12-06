@@ -1,6 +1,7 @@
-import { Space, Table, Tag } from "antd";
+import { Space, Spin, Table, Tag } from "antd";
 import { GET_POLICIES } from "./query";
 import { useQuery } from "@apollo/client";
+import { DeleteCreditPopup } from "./DeleteCreditPopup";
 const columns = [
   {
     title: "#",
@@ -72,7 +73,7 @@ const columns = [
     render: (_, record) => (
       <Space size="middle">
         <a>Sửa</a>
-        <a>Xóa</a>
+        <DeleteCreditPopup />
       </Space>
     ),
   },
@@ -81,10 +82,22 @@ const columns = [
 export default function CreditTable() {
   const { data, loading, error } = useQuery(GET_POLICIES);
 
-  if (loading) return "Loading...";
+  if (loading)
+    return (
+      <div className="text-center">
+        <Spin size="large" />
+      </div>
+    );
   if (error) return `Error! ${error.message}`;
 
   const countries = data.countries;
 
-  return <Table columns={columns} dataSource={countries} bordered className="overflow-auto"/>;
+  return (
+    <Table
+      columns={columns}
+      dataSource={countries}
+      bordered
+      className="overflow-auto"
+    />
+  );
 }

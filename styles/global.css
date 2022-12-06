@@ -1,6 +1,6 @@
-
 @tailwind components;
 @tailwind utilities;
+@tailwind base;
 
 *,
 *:before,
@@ -12,9 +12,14 @@ html {
   box-sizing: border-box;
   font-size: 14px;
   -ms-overflow-style: -ms-autohiding-scrollbar;
-  height:100%;
+  height: 100%;
 }
-html,body { height: 100%; margin: 0px; padding: 0px; }
+html,
+body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
 
 body {
   background-color: var(--backgroundColor);
@@ -47,10 +52,33 @@ body {
 }
 
 .site-layout .site-layout-background {
-  background: var(--textWhite)
+  background: var(--textWhite);
 }
 
-button, [type="button"], [type="reset"], [type="submit"] {
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
   appearance: button;
   background-image: none;
+}
+
+.ant-table-content {
+  overflow-x: auto;
+}
+
+.anticon-user {
+  vertical-align: middle !important;
+}
+
+.ant-btn-primary {
+  color: #fff;
+  background-color: #1677ff;
+  box-shadow: 0 2px 0 rgb(5 145 255 / 10%);
+}
+
+.ant-btn-default {
+  background-color: #fff;
+  border-color: #d9d9d9;
+  box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
 }

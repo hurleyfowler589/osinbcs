@@ -1,9 +1,9 @@
 import { createContext } from 'react'
 
-const LogoutContext = createContext({
+const CreateCreditContext = createContext({
   isModalOpen: false,
   openModal:  () => {},
   closeModal: () => {},
 })
 
-export default LogoutContext
+export default CreateCreditContext
