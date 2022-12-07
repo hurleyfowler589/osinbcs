@@ -1,29 +1,21 @@
-import { useState, createElement, useContext } from "react";
+import { useState, createElement } from "react";
+import { Avatar, Dropdown, Layout, Menu, Space } from "antd";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   DollarCircleOutlined,
   CreditCardOutlined,
-  LogoutOutlined,
   UserOutlined,
   DownOutlined,
 } from "@ant-design/icons";
-import { Avatar, Dropdown, Layout, Menu, Space } from "antd";
-import Credit from "./credit/index";
-import Instalment from "./instalment/index";
-import { useRouter } from "next/router";
+import Credit from "./credit";
+import Instalment from "./instalment";
 
-const { Header, Sider, Content } = Layout;
+const { Header, Sider } = Layout;
 
-const BaseLayout = ({ children, user, path = "/credit" }) => {
-  // check token here, if not return to page unauthorize
-
+const Home = () => {
   const [collapsed, setCollapsed] = useState(false);
-
-  const router = useRouter();
-
-  if (!router.pathname) router.push(path)
-  console.log("router=---------", router);
+  const [selected, setSelected] = useState("credit");
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -34,10 +26,8 @@ const BaseLayout = ({ children, user, path = "/credit" }) => {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={[path]}
-          onSelect={({ key }) => {
-            router.push(`${key}`);
-          }}
+          defaultSelectedKeys={[selected]}
+          onSelect={({ key }) => setSelected(key)}
           items={[
             {
               key: "credit",
@@ -100,9 +90,14 @@ const BaseLayout = ({ children, user, path = "/credit" }) => {
             </div>
           </div>
         </Header>
-        {children}
+          {
+            {
+              credit: <Credit />,
+              instalment: <Instalment />,
+            }[selected]
+          }
       </Layout>
     </Layout>
   );
 };
-export default BaseLayout;
+export default Home;

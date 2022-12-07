@@ -1,6 +1,7 @@
 import { Space, Table, Tag } from "antd";
 import { GET_POLICIES } from "./query";
 import { useQuery } from "@apollo/client";
+import Loading from "../common/Loading";
 const columns = [
   {
     title: "#",
@@ -79,13 +80,21 @@ const columns = [
 ];
 
 export default function InstalmentTable() {
-  const { data, loading, error } = useQuery(GET_POLICIES);
+  const { data, loading, error } = useQuery(GET_POLICIES, {
+    fetchPolicy: "cache-and-network",
+  });
 
-  if (loading) return "Loading...";
+  if (loading) return <Loading />;
   if (error) return `Error! ${error.message}`;
 
   const countries = data.countries;
 
-
-  return <Table columns={columns} dataSource={countries} bordered className="overflow-auto"/>;
+  return (
+    <Table
+      columns={columns}
+      dataSource={countries}
+      bordered
+      className="overflow-auto"
+    />
+  );
 }

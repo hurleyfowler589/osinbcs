@@ -1,3 +1,4 @@
+import { DeleteOutlined } from "@ant-design/icons";
 import { Popconfirm } from "antd";
 
 export function DeleteCreditPopup() {
@@ -9,7 +10,11 @@ export function DeleteCreditPopup() {
       placement="topLeft"
       onConfirm={() => {}}
     >
-      <a href="#">Xóa</a>
+      <DeleteOutlined
+        title="Xóa"
+        style={{ fontSize: "18px" }}
+        className="text-red-500"
+      />
     </Popconfirm>
   );
 }

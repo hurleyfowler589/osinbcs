@@ -1,4 +1,3 @@
-import { useQuery, gql } from "@apollo/client";
 import { Button, Card, Input } from "antd";
 import { useContext } from "react";
 import CreateCreditContext from "../context/create-credit-context";
@@ -9,13 +8,15 @@ const { Search } = Input;
 function Instalment() {
   const onSearch = (value) => console.log(value);
 
-  const createCreditContext = useContext(CreateCreditContext)
+  const createCreditContext = useContext(CreateCreditContext);
 
   return (
     <Card className="m-4 h-full">
       <p className="mb-2 text-lg font-semibold">Hợp đồng Tín Chấp</p>
       <div className="flex justify-between mb-4">
-        <Button onClick={() => createCreditContext.openModal()} type="primary">Thêm hợp đồng mới</Button>
+        <Button onClick={() => createCreditContext.openModal()} type="primary">
+          Thêm hợp đồng mới
+        </Button>
         <Search
           placeholder="Tìm kiếm tên khách hàng..."
           allowClear
@@ -30,4 +31,4 @@ function Instalment() {
   );
 }
 
-export default withCreateCreditModal(Instalment)
+export default withCreateCreditModal(Instalment);

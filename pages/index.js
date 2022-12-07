@@ -1,6 +1,6 @@
-import BaseLayout from "../components/Layout";
+import Home from "../components/Home";
 
 const App = () => {
-  return <BaseLayout />;
+  return <Home />;
 };
 export default App;
