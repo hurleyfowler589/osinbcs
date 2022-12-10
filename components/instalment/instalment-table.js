@@ -83,8 +83,8 @@ const COLUMNS = [
   },
   {
     title: "Ngày phải đóng",
-    dataIndex: "loanTime",
-    key: "loanTime",
+    dataIndex: "fromDate",
+    key: "fromDate",
     render: (value) => formatDDMMYYYY(value)
   },
 ];

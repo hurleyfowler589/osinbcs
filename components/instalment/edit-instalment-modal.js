@@ -39,9 +39,9 @@ function EditInstalmentModal({
   useEffect(() => {
     if (detail) {
       form.setFieldsValue({
-        ...detail,
+       ...detail,
         fromDate: moment(detail.fromDate),
-        note: moment(detail.note),
+        note: detail.note,
       });
     }
   }, detail);
@@ -73,6 +73,7 @@ function EditInstalmentModal({
         onOk={onClose}
         onCancel={onClose}
         destroyOnClose={true}
+        // maskClosable={false}
         footer={[
           <div className="text-center">
             <Button type="default" onClick={onClose}>
