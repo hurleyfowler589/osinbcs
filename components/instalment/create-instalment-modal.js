@@ -144,7 +144,7 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
           </Form.Item>
 
           <Form.Item
-            name="frequency"
+            name="loanTime"
             label="Bốc trong vòng"
             rules={[
               {
@@ -165,7 +165,7 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
           </Form.Item>
 
           <Form.Item
-            name="loanTime"
+            name="frequency"
             label="Số ngày đóng tiền"
             rules={[{ required: true, message: "Nhập Số ngày đóng tiền!" }]}
           >

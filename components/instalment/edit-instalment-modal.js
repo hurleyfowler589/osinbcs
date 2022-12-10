@@ -163,14 +163,14 @@ function EditInstalmentModal({
           </Form.Item>
 
           <Form.Item
-            name="frequency"
+            name="loanTime"
             label="Bốc trong vòng"
             rules={[
               {
                 required: false,
               },
             ]}
-            initialValue={detail?.frequency}
+            initialValue={detail?.loanTime}
           >
             <InputNumber
               disabled
@@ -185,14 +185,14 @@ function EditInstalmentModal({
           </Form.Item>
 
           <Form.Item
-            name="loanTime"
+            name="frequency"
             label="Số ngày đóng tiền"
             rules={[
               {
                 required: false,
               },
             ]}
-            initialValue={detail?.loanTime}
+            initialValue={detail?.frequency}
           >
             <InputNumber
               disabled
