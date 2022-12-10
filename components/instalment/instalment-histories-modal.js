@@ -1,4 +1,5 @@
 import { Button, Modal } from "antd";
+import InstalmentHistoriesTable from "./instalment-histories-table";
 
 const InstalmentDetail = ({ detail }) => {
   return (
@@ -90,9 +91,8 @@ function InstalmentHistoriesModal({
         onCancel={closeModal}
         footer={[]}
       >
-        <InstalmentDetail detail={detail}/>
-
-
+        <InstalmentDetail detail={detail} />
+        <InstalmentHistoriesTable detail={detail} />
       </Modal>
     </>
   );
