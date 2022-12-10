@@ -86,6 +86,8 @@ function CreditHistoriesTable({ detail }) {
   //   });
   // };
 
+  const lastUnpaid = dataSource.find(item => !item.isDone)
+
   const columns = [
     {
       title: "STT",
@@ -107,7 +109,7 @@ function CreditHistoriesTable({ detail }) {
         );
       },
     },
-     {
+    {
       title: "Số ngày",
       dataIndex: "frequency",
       render: (value) => value,
@@ -135,7 +137,7 @@ function CreditHistoriesTable({ detail }) {
             placement="topLeft"
             onConfirm={() => checkedInstalment(record)}
           >
-            <Checkbox checked={value} />
+            <Checkbox checked={value} disabled={!value && record?.id !== lastUnpaid?.id} />
           </Popconfirm>
         );
       },
@@ -184,9 +186,9 @@ function CreditHistoriesTable({ detail }) {
 
   useEffect(() => {
     if (detail) {
-      setDataSource(detail.mortgageContractSchedule || [])
-    }   
-  }, [detail])
+      setDataSource(detail.mortgageContractSchedule || []);
+    }
+  }, [detail]);
 
   return (
     <>

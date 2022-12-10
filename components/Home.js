@@ -83,7 +83,7 @@ const Home = () => {
               >
                 <a onClick={(e) => e.preventDefault()}>
                   <Space>
-                    Thanh Nguyen{" "}
+                    Admin{" "}
                     <DownOutlined className="text-[10px] align-middle" />
                   </Space>
                 </a>

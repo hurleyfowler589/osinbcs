@@ -1,4 +1,4 @@
-import { Button, Space, Spin, Table, Tag } from "antd";
+import { Button,  Space, Table, Tag } from "antd";
 import { GET_CREDITS } from "./query";
 import { useQuery } from "@apollo/client";
 import {
@@ -9,7 +9,7 @@ import Loading from "../common/Loading";
 import { useContext } from "react";
 import EditCreditContext from "../context/credit/edit-credit-context";
 import withEditCreditModal from "../hoc/credit/with-edit-credit-modal";
-import { EditOutlined, SolutionOutlined } from "@ant-design/icons";
+import { EditFilled, SolutionOutlined } from "@ant-design/icons";
 import { formatCurrency, formatDDMMYYYY } from "../../helpers/common";
 import { CREDIT_STATUS_LABEL, INSTALMENT_STATUS_COLOR } from "../common";
 import CreditHistoriesContext from "../context/credit/credit-histories.context";
@@ -81,17 +81,19 @@ function CreditTable() {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <SolutionOutlined
-            style={{ fontSize: "18px" }}
-            title="Lịch sử  trả góp"
+          <Button
+            icon={<SolutionOutlined />}
+            title="Lịch sử  đóng tiền lãi"
             onClick={() => historiesContext.openModal(record)}
+            style={{ color: "#108ee9" }}
           />
-          <EditOutlined
+          <Button
+            icon={<EditFilled />}
+            title="Sửa"
             onClick={() => {
               editContext.openModal(record);
             }}
-            title="Sửa"
-            style={{ fontSize: "18px", color: "orange" }}
+            style={{ color: "#FF7000" }}
           />
           <DeleteCreditConfirm id={record.id} />
         </Space>

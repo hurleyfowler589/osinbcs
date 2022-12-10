@@ -1,11 +1,14 @@
-import { Popconfirm } from "antd";
-import { DeleteOutlined } from "@ant-design/icons";
+import { Button, Popconfirm } from "antd";
+import { DeleteFilled, DeleteOutlined } from "@ant-design/icons";
 import { useMutation } from "@apollo/client";
 import { DELETE_INSTALMENT, GET_INSTALMENTS } from "./query";
 import { handleResponse } from "../../helpers/common";
 
 export function DeleteInstalmentConfirm({ id }) {
-  const [removeInstalment] = useMutation(DELETE_INSTALMENT, handleResponse({ successMsg: "Xóa hợp đồng thành công"}));
+  const [removeInstalment] = useMutation(
+    DELETE_INSTALMENT,
+    handleResponse({ successMsg: "Xóa hợp đồng thành công" })
+  );
 
   const onConfirm = () => {
     if (!id) return;
@@ -29,10 +32,10 @@ export function DeleteInstalmentConfirm({ id }) {
       placement="topLeft"
       onConfirm={onConfirm}
     >
-      <DeleteOutlined
+      <Button
+        icon={<DeleteFilled />}
         title="Xóa"
-        style={{ fontSize: "18px" }}
-        className="text-red-500"
+        style={{ color: "#FF6464" }}
       />
     </Popconfirm>
   );

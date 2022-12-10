@@ -79,6 +79,8 @@ function InstalmentHistoriesTable({ detail }) {
   //   });
   // };
 
+  const lastUnpaid = dataSource.find((item) => !item.isDone);
+
   const columns = [
     {
       title: "STT",
@@ -123,7 +125,10 @@ function InstalmentHistoriesTable({ detail }) {
             placement="topLeft"
             onConfirm={() => checkedInstalment(record)}
           >
-            <Checkbox checked={value} />
+            <Checkbox
+              checked={value}
+              disabled={!value && record?.id !== lastUnpaid?.id}
+            />
           </Popconfirm>
         );
       },
@@ -172,10 +177,9 @@ function InstalmentHistoriesTable({ detail }) {
 
   useEffect(() => {
     if (detail) {
-      setDataSource(detail.installmentContractSchedule || [])
-    }   
-  }, [detail])
-
+      setDataSource(detail.installmentContractSchedule || []);
+    }
+  }, [detail]);
 
   return (
     <>

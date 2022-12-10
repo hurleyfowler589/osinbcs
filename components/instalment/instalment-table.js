@@ -1,10 +1,15 @@
-import { Space, Table, Tag } from "antd";
+import { Button, Space, Table, Tag } from "antd";
 import moment from "moment";
 import { GET_INSTALMENTS } from "./query";
 import { useQuery } from "@apollo/client";
 import Loading from "../common/Loading";
 import { DeleteInstalmentConfirm } from "./delete-instalment-confirm";
-import { ArrowRightOutlined, EditOutlined, SolutionOutlined } from "@ant-design/icons";
+import {
+  ArrowRightOutlined,
+  EditFilled,
+  EditOutlined,
+  SolutionOutlined,
+} from "@ant-design/icons";
 import withEditInstalmentModal from "../hoc/instalment/with-edit-instalment-modal";
 import { useContext } from "react";
 import EditInstalmentContext from "../context/instalment/edit-instalment.context";
@@ -48,12 +53,12 @@ const COLUMNS = [
       if (!record.toDate || !record.fromDate) return "";
       return (
         <div className="flex justify-around">
-        <div>{formatDDMMYYYY(record?.fromDate)}</div>
-        <div className="flex items-center">
-          <ArrowRightOutlined />
+          <div>{formatDDMMYYYY(record?.fromDate)}</div>
+          <div className="flex items-center">
+            <ArrowRightOutlined />
+          </div>
+          <div>{formatDDMMYYYY(record?.toDate)}</div>
         </div>
-        <div>{formatDDMMYYYY(record?.toDate)}</div>
-      </div>
       );
     },
   },
@@ -76,10 +81,10 @@ const COLUMNS = [
     render: (value) => {
       return (
         <Tag color={INSTALMENT_STATUS_COLOR[value]} key={value}>
-          {(INSTALMENT_STATUS_LABEL[value] || '')?.toUpperCase()}
+          {(INSTALMENT_STATUS_LABEL[value] || "")?.toUpperCase()}
         </Tag>
-      )
-    }
+      );
+    },
   },
 ];
 
@@ -90,7 +95,7 @@ function InstalmentTable() {
 
   if (loading) return <Loading />;
   if (error) return `Error! ${error.message}`;
-  
+
   const editContext = useContext(EditInstalmentContext);
   const historiesContext = useContext(InstalmentHistoriesContext);
 
@@ -100,17 +105,19 @@ function InstalmentTable() {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <SolutionOutlined
-            style={{ fontSize: "18px"}}
+          <Button
+            icon={<SolutionOutlined />}
             title="Lịch sử  trả góp"
             onClick={() => historiesContext.openModal(record)}
+            style={{ color: '#108ee9'}}
           />
-          <EditOutlined
+          <Button
+            icon={<EditFilled />}
+            title="Sửa"
             onClick={() => {
               editContext.openModal(record);
             }}
-            title="Sửa"
-            style={{ fontSize: "18px", color: 'orange' }}
+            style={{ color: '#FF7000'}}
           />
           <DeleteInstalmentConfirm id={record.id} />
         </Space>
