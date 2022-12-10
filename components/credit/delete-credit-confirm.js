@@ -1,21 +1,21 @@
 import { Popconfirm } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import { useMutation } from "@apollo/client";
-import { DELETE_INSTALMENT, GET_INSTALMENTS } from "./query";
+import { DELETE_CREDIT, GET_CREDITS, } from "./query";
 import { handleResponse } from "../../helpers/common";
 
-export function DeleteInstalmentConfirm({ id }) {
-  const [removeInstalment] = useMutation(DELETE_INSTALMENT, handleResponse({ successMsg: "Xóa hợp đồng thành công"}));
+export function DeleteCreditConfirm({ id }) {
+  const [removeInstalment] = useMutation(DELETE_CREDIT, handleResponse({ successMsg: "Xóa hợp đồng thành công"}));
 
   const onConfirm = () => {
     if (!id) return;
     removeInstalment({
       variables: {
-        removeInstallmentContractId: id,
+        removeMortgageContractId: id,
       },
       refetchQueries: [
         {
-          query: GET_INSTALMENTS,
+          query: GET_CREDITS,
         },
       ],
     });

@@ -6,7 +6,7 @@ const httpLink = createHttpLink({
 });
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3MDY4MDQ5NCwiZXhwIjoxNjcwNjg0MDk0fQ.1B8AhoLx5VHez5cU8nf6f6DmuBzGsnlWKF7OmEv8kTE";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZG1pbiIsImlhdCI6MTY3MDY4ODI5NiwiZXhwIjoxNjcwNjkxODk2fQ.pb3fKeXHVtKHvV4wKucwuooOGfq0_XSzsnY_P-TcomU";
 
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists

@@ -1,9 +1,10 @@
-import { Button, Modal, Tag } from "antd";
+import { Modal, Tag } from "antd";
 import { formatCurrency, formatDDMMYYYY } from "../../helpers/common";
-import { INSTALMENT_STATUS_COLOR, INSTALMENT_STATUS_LABEL } from "../common";
-import InstalmentHistoriesTable from "./instalment-histories-table";
+import { INSTALMENT_STATUS_COLOR, CREDIT_STATUS_LABEL } from "../common";
+import CreditHistoriesTable from "./credit-histories-table";
 
-const InstalmentDetail = ({ detail }) => {
+const CreditDetail = ({ detail }) => {
+  console.log("detail-----", detail);
   return (
     <div className="flex flex-row gap-8 instalment-detail">
       <div className="flex flex-col w-full">
@@ -13,21 +14,21 @@ const InstalmentDetail = ({ detail }) => {
               <td className="font-bold">{detail?.customerName || ""}</td>
             </tr>
             <tr className="border">
-              <td className="border font-bold">Trả góp</td>
+              <td className="border font-bold">Tiền vay</td>
               <td className="border"></td>
               <td className="border text-right">
                 {formatCurrency(detail?.frequencyMoney)}
               </td>
             </tr>
             <tr className="border">
-              <td className="border font-bold">Tỉ lệ</td>
+              <td className="border font-bold">Lãi suất</td>
               <td className="border"></td>
               <td className="border text-right">
-                10 ăn <b>{detail?.rate || 0}</b>
+                {formatCurrency(detail?.interest)}/1 ngày
               </td>
             </tr>
             <tr className="border">
-              <td className="border font-bold">Họ từ ngày</td>
+              <td className="border font-bold">Vay từ ngày</td>
               <td className="border text-right">
                 {formatDDMMYYYY(detail?.fromDate)}
               </td>
@@ -53,36 +54,22 @@ const InstalmentDetail = ({ detail }) => {
         <table class="table-auto border ">
           <tbody>
             <tr className="border">
-              <td className="font-bold">Số Tiền khách giao</td>
+              <td className="font-bold">Tổng lãi</td>
               <td className="border text-right">
-                {formatCurrency(detail?.totalMoney)}
+                {formatCurrency(detail?.totalInterest)}
               </td>
             </tr>
             <tr className="border">
-              <td className="font-bold">Số tiền phải đóng</td>
+              <td className="font-bold">Đã thanh toán</td>
               <td className="border text-right">
-                {formatCurrency(detail?.totalMoneyCurrent)}
-              </td>
-            </tr>
-            <tr className="border">
-              <td className="font-bold">Đã đóng được</td>
-              <td className="border text-right">
-                {formatCurrency(detail?.totalMoneyReceived)}
-              </td>
-            </tr>
-            <tr className="border">
-              <td className="font-bold">Còn lại phải đóng</td>
-              <td className="border text-right">
-                {formatCurrency(
-                  detail?.totalMoneyCurrent - detail?.totalMoneyReceived
-                )}
+                {formatCurrency(detail?.interestMoneyReceived)}
               </td>
             </tr>
             <tr className="border">
               <td className="font-bold">Trạng thái</td>
               <td className="border text-right">
                 <Tag color={INSTALMENT_STATUS_COLOR[detail?.status]}>
-                  {INSTALMENT_STATUS_LABEL[detail?.status].toUpperCase()}
+                  {CREDIT_STATUS_LABEL[detail?.status].toUpperCase()}
                 </Tag>
               </td>
             </tr>
@@ -93,27 +80,26 @@ const InstalmentDetail = ({ detail }) => {
   );
 };
 
-function InstalmentHistoriesModal({
-  isModalOpen,
-  handleOk,
-  closeModal,
-  detail,
-}) {
+function CreditHistoriesModal({ isModalOpen, handleOk, closeModal, detail }) {
   return (
     <>
       <Modal
         open={isModalOpen}
         width={1000}
-        title={<div className="text-center uppercase">Chi tiết Hợp đồng Trả Góp</div>}
+        title={
+          <div className="text-center uppercase">
+            Chi tiết hợp đồng vay tiền
+          </div>
+        }
         onOk={handleOk}
         onCancel={closeModal}
         footer={[]}
       >
-        <InstalmentDetail detail={detail} />
-        <InstalmentHistoriesTable detail={detail} />
+        <CreditDetail detail={detail} />
+        <CreditHistoriesTable detail={detail} />
       </Modal>
     </>
   );
 }
 
-export default InstalmentHistoriesModal;
+export default CreditHistoriesModal;

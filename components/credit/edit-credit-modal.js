@@ -1,8 +1,13 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import moment from "moment";
 import { Button, DatePicker, Form, Input, InputNumber, Modal } from "antd";
-import { CREATE_INSTALMENT, GET_INSTALMENTS } from "./query";
+import {
+  GET_INSTALMENT_DETAIL,
+  UPDATE_CREDIT,
+  UPDATE_INSTALMENT,
+} from "./query";
 import { handleResponse } from "../../helpers/common";
+import { useEffect, useMemo } from "react";
 
 const layout = {
   labelCol: {
@@ -15,39 +20,40 @@ const layout = {
 
 const { TextArea } = Input;
 
-function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
+function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
   const [form] = Form.useForm();
   const { submit, resetFields } = form;
 
-  const [createInstalment] = useMutation(
-    CREATE_INSTALMENT,
+  const [updateInstalment] = useMutation(
+    UPDATE_CREDIT,
     handleResponse({
-      onSuccess: () => {
-        closeModal();
-        resetFields();
+      onSuccess: (d) => {
+        onClose();
       },
+      successMsg: "Câp nhật thành công",
     })
   );
 
+  useEffect(() => {
+    if (detail) {
+      form.setFieldsValue({
+        ...detail,
+        fromDate: moment(detail.fromDate),
+        note: detail.note,
+      });
+    }
+  }, detail);
+
   const onFinish = (values) => {
-    createInstalment({
+    updateInstalment({
       variables: {
-        createInstallmentContractInput: {
+        updateMortgageContractInput: {
           customerName: values.customerName,
           customerPhone: values.customerPhone,
-          frequency: values.frequency,
-          fromDate: values.fromDate.format(),
-          loanTime: values.loanTime,
+          id: detail?.id,
           note: values.note,
-          totalMoneyReceived: values.totalMoneyReceived,
-          totalMoney: values.totalMoney,
         },
       },
-      refetchQueries: [
-        {
-          query: GET_INSTALMENTS,
-        },
-      ],
     });
   };
 
@@ -56,21 +62,19 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
     resetFields();
   };
 
-
   return (
     <>
       <Modal
         open={isModalOpen}
         width={700}
-        title="Thêm mới hợp đồng"
-        onOk={handleOk}
+        title={`Cập nhật hợp đồng`}
+        onOk={onClose}
         onCancel={onClose}
+        destroyOnClose={true}
+        // maskClosable={false}
         footer={[
           <div className="text-center">
-            <Button
-              type="default"
-              onClick={onClose}
-            >
+            <Button type="default" onClick={onClose}>
               Đóng
             </Button>
             <Button key="submit" type="primary" onClick={submit}>
@@ -90,6 +94,7 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
             name="customerName"
             label="Tên khách hàng"
             rules={[{ required: true, message: "Nhập tên khách hàng!" }]}
+            initialValue={detail?.customerName}
           >
             <Input placeholder="Nhập tên khách hàng" />
           </Form.Item>
@@ -103,39 +108,27 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
                 message: "Nhập số điện thoại!",
               },
             ]}
+            initialValue={detail?.customerPhone}
           >
             <Input placeholder="Nhập số điện thoại" />
           </Form.Item>
 
           <Form.Item
             name="totalMoney"
-            label="Trả góp"
-            rules={[{ required: true, message: "Nhập tiền trả góp!" }]}
+            label="Tổng số tiền vay"
+            rules={[{ required: true, message: "Nhập số tiền vay!" }]}
+            initialValue={detail?.totalMoney}
+            disabled
           >
             <InputNumber
-              placeholder="Nhập số tiền trả góp"
+              placeholder="Nhập số tiền vay"
               addonAfter={
                 <Form.Item name="suffix" noStyle>
                   VNĐ
                 </Form.Item>
               }
               style={{ width: "100%" }}
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="totalMoneyReceived"
-            label="Tiền đưa khách"
-            rules={[{ required: true, message: "Nhập tiền đưa khách!" }]}
-          >
-            <InputNumber
-              placeholder="Nhập tiền đưa khách hàng"
-              addonAfter={
-                <Form.Item name="suffix" noStyle>
-                  VNĐ
-                </Form.Item>
-              }
-              style={{ width: "100%" }}
+              disabled
             />
           </Form.Item>
 
@@ -144,14 +137,34 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
           </Form.Item>
 
           <Form.Item
+            name="loanTime"
+            label="Số ngày vay"
+            rules={[{ required: true, message: "Nhập Số ngày vay!" }]}
+            initialValue={detail?.loanTime}
+          >
+            <InputNumber
+              placeholder="Nhập Số ngày vay"
+              addonAfter={
+                <Form.Item name="suffix" noStyle>
+                  Ngày
+                </Form.Item>
+              }
+              style={{ width: "100%" }}
+              disabled
+            />
+          </Form.Item>
+
+          <Form.Item
             name="frequency"
-            label="Bốc trong vòng"
+            label="Kỳ lãi"
             rules={[
               {
                 required: true,
-                message: "Nhập ngày bốc trong vòng!",
+                message: "Nhập Kỳ lãi!",
               },
             ]}
+            disabled
+            initialValue={detail?.frequency}
           >
             <InputNumber
               addonAfter={
@@ -160,34 +173,52 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
                 </Form.Item>
               }
               style={{ width: "100%" }}
-              placeholder="Nhập ngày bốc trong vòng"
+              placeholder="Nhập kỳ lãi"
+              max={1000}
+              min={0}
+              disabled
             />
           </Form.Item>
 
           <Form.Item
-            name="loanTime"
-            label="Số ngày đóng tiền"
-            rules={[{ required: true, message: "Nhập Số ngày đóng tiền!" }]}
+            name="interest"
+            label="Lãi"
+            rules={[
+              {
+                required: true,
+                message: "Nhập lãi!",
+              },
+            ]}
+            initialValue={detail?.interest}
           >
             <InputNumber
-              placeholder="Nhập số ngày đóng tiền"
+              addonAfter={
+                <Form.Item name="suffix" noStyle>
+                  k/1 triệu
+                </Form.Item>
+              }
+              disabled
               style={{ width: "100%" }}
-              max={1000}
-              min={0}
+              placeholder="Nhập lãi"
             />
           </Form.Item>
 
           <Form.Item
             name="fromDate"
-            label="Ngày bốc"
+            label="Ngày vay"
             rules={[
               {
                 required: true,
-                message: "Chọn ngày bốc!",
+                message: "Chọn ngày vay!",
               },
             ]}
+            initialValue={detail?.fromDate ? moment(detail?.fromDate) : null}
           >
-            <DatePicker placeholder="Chọn ngày bốc" format="DD/MM/YYYY" />
+            <DatePicker
+              disabled
+              placeholder="Chọn ngày vay"
+              format="DD/MM/YYYY"
+            />
           </Form.Item>
 
           <Form.Item
@@ -207,4 +238,4 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
   );
 }
 
-export default CreateInstalmentModal;
+export default EditCreditModal;

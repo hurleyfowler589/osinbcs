@@ -1,8 +1,8 @@
 import { useMutation } from "@apollo/client";
-import moment from "moment";
 import { Button, DatePicker, Form, Input, InputNumber, Modal } from "antd";
-import { CREATE_INSTALMENT, GET_INSTALMENTS } from "./query";
+import { CREATE_CREDIT, GET_CREDITS } from "./query";
 import { handleResponse } from "../../helpers/common";
+import moment from "moment";
 
 const layout = {
   labelCol: {
@@ -15,12 +15,12 @@ const layout = {
 
 const { TextArea } = Input;
 
-function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
+function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
   const [form] = Form.useForm();
   const { submit, resetFields } = form;
 
   const [createInstalment] = useMutation(
-    CREATE_INSTALMENT,
+    CREATE_CREDIT,
     handleResponse({
       onSuccess: () => {
         closeModal();
@@ -32,20 +32,20 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
   const onFinish = (values) => {
     createInstalment({
       variables: {
-        createInstallmentContractInput: {
+        createMortgageContractInput: {
           customerName: values.customerName,
           customerPhone: values.customerPhone,
           frequency: values.frequency,
           fromDate: values.fromDate.format(),
+          interest: values.interest,
           loanTime: values.loanTime,
           note: values.note,
-          totalMoneyReceived: values.totalMoneyReceived,
           totalMoney: values.totalMoney,
         },
       },
       refetchQueries: [
         {
-          query: GET_INSTALMENTS,
+          query: GET_CREDITS,
         },
       ],
     });
@@ -55,7 +55,6 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
     closeModal();
     resetFields();
   };
-
 
   return (
     <>
@@ -67,10 +66,7 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
         onCancel={onClose}
         footer={[
           <div className="text-center">
-            <Button
-              type="default"
-              onClick={onClose}
-            >
+            <Button type="default" onClick={onClose}>
               Đóng
             </Button>
             <Button key="submit" type="primary" onClick={submit}>
@@ -109,27 +105,11 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
 
           <Form.Item
             name="totalMoney"
-            label="Trả góp"
-            rules={[{ required: true, message: "Nhập tiền trả góp!" }]}
+            label="Tổng số tiền vay"
+            rules={[{ required: true, message: "Nhập số tiền vay!" }]}
           >
             <InputNumber
-              placeholder="Nhập số tiền trả góp"
-              addonAfter={
-                <Form.Item name="suffix" noStyle>
-                  VNĐ
-                </Form.Item>
-              }
-              style={{ width: "100%" }}
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="totalMoneyReceived"
-            label="Tiền đưa khách"
-            rules={[{ required: true, message: "Nhập tiền đưa khách!" }]}
-          >
-            <InputNumber
-              placeholder="Nhập tiền đưa khách hàng"
+              placeholder="Nhập số tiền vay"
               addonAfter={
                 <Form.Item name="suffix" noStyle>
                   VNĐ
@@ -144,12 +124,28 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
           </Form.Item>
 
           <Form.Item
+            name="loanTime"
+            label="Số ngày vay"
+            rules={[{ required: true, message: "Nhập Số ngày vay!" }]}
+          >
+            <InputNumber
+              placeholder="Nhập Số ngày vay"
+              addonAfter={
+                <Form.Item name="suffix" noStyle>
+                  Ngày
+                </Form.Item>
+              }
+              style={{ width: "100%" }}
+            />
+          </Form.Item>
+
+          <Form.Item
             name="frequency"
-            label="Bốc trong vòng"
+            label="Kỳ lãi"
             rules={[
               {
                 required: true,
-                message: "Nhập ngày bốc trong vòng!",
+                message: "Nhập Kỳ lãi!",
               },
             ]}
           >
@@ -160,34 +156,44 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
                 </Form.Item>
               }
               style={{ width: "100%" }}
-              placeholder="Nhập ngày bốc trong vòng"
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="loanTime"
-            label="Số ngày đóng tiền"
-            rules={[{ required: true, message: "Nhập Số ngày đóng tiền!" }]}
-          >
-            <InputNumber
-              placeholder="Nhập số ngày đóng tiền"
-              style={{ width: "100%" }}
+              placeholder="Nhập kỳ lãi"
               max={1000}
               min={0}
             />
           </Form.Item>
 
           <Form.Item
-            name="fromDate"
-            label="Ngày bốc"
+            name="interest"
+            label="Lãi"
             rules={[
               {
                 required: true,
-                message: "Chọn ngày bốc!",
+                message: "Nhập lãi!",
               },
             ]}
           >
-            <DatePicker placeholder="Chọn ngày bốc" format="DD/MM/YYYY" />
+            <InputNumber
+              addonAfter={
+                <Form.Item name="suffix" noStyle>
+                  k/1 ngày
+                </Form.Item>
+              }
+              style={{ width: "100%" }}
+              placeholder="Nhập lãi"
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="fromDate"
+            label="Ngày vay"
+            rules={[
+              {
+                required: true,
+                message: "Chọn ngày vay!",
+              },
+            ]}
+          >
+            <DatePicker placeholder="Chọn ngày vay" format="DD/MM/YYYY" />
           </Form.Item>
 
           <Form.Item
@@ -207,4 +213,4 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
   );
 }
 
-export default CreateInstalmentModal;
+export default CreateCreditModal;

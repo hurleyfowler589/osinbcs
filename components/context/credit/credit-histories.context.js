@@ -1,9 +1,9 @@
 import { createContext } from 'react'
 
-const EditCreditContext = createContext({
+const CreditHistoriesContext = createContext({
   isModalOpen: false,
   openModal:  (data) => {},
   closeModal: () => {},
 })
 
-export default EditCreditContext
+export default CreditHistoriesContext

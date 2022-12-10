@@ -20,7 +20,7 @@ function Instalment() {
             createInstalmentContext.openModal();
           }}
         >
-          Thêm hợp đồng mới
+          Thêm hợp đồng
         </Button>
         <Search
           placeholder="Tìm kiếm tên khách hàng..."

@@ -29,8 +29,7 @@ function EditInstalmentModal({
     UPDATE_INSTALMENT,
     handleResponse({
       onSuccess: (d) => {
-        resetFields();
-        closeModal();
+        onClose()
       },
       successMsg: "Câp nhật thành công",
     })

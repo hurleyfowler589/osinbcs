@@ -16,7 +16,7 @@ const { Header, Sider } = Layout;
 
 const Home = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [selected, setSelected] = useState("instalment");
+  const [selected, setSelected] = useState("credit");
 
   return (
     <Layout style={{ minHeight: "100vh" }}>

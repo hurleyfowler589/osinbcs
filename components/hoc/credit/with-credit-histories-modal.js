@@ -1,26 +1,30 @@
 import { useCallback, useState } from "react";
-import CreateCreditContext from "../../context/credit/create-credit-context";
-import CreateCreditModal from "../../credit/create-credit-modal";
+import CreditHistoriesContext from "../../context/credit/credit-histories.context";
+import CreditHistoriesModal from "../../credit/credit-histories-modal";
 
-export default function withCreateCreditModal(Components) {
-  return function withCreateCreditModalComponent(props) {
+export default function withCreditHistoriesModal(Components) {
+  return function withCreditHistoriesModalComponent(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [data, setData] = useState(null);
 
-    const openModal = useCallback(() => {
+    const openModal = useCallback((input) => {
       setIsModalOpen(true);
+      if (input) setData(input);
     }, []);
 
     const handleOk = useCallback(() => {
       setIsModalOpen(false);
+      setData(null)
     }, []);
 
     const closeModal = useCallback(() => {
       setIsModalOpen(false);
+      setData(null)
     }, []);
 
     return (
       <>
-        <CreateCreditContext.Provider
+        <CreditHistoriesContext.Provider
           value={{
             isModalOpen: isModalOpen,
             closeModal: closeModal,
@@ -28,12 +32,13 @@ export default function withCreateCreditModal(Components) {
           }}
         >
           <Components {...props} />
-          <CreateCreditModal
+          <CreditHistoriesModal
             isModalOpen={isModalOpen}
             handleOk={handleOk}
             closeModal={closeModal}
+            detail={data}
           />
-        </CreateCreditContext.Provider>
+        </CreditHistoriesContext.Provider>
       </>
     );
   };

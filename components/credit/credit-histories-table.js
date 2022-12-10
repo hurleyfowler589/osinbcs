@@ -11,14 +11,20 @@ import {
   formatDDMMYYYY,
   handleResponse,
 } from "../../helpers/common";
-import { GET_INSTALMENTS, MAKE_PAYMENT, UPDATE_NOTE } from "./query";
+import {
+  GET_CREDITS,
+  GET_INSTALMENTS,
+  MAKE_PAYMENT,
+  UPDATE_NOTE,
+} from "./query";
 
 const { TextArea } = Input;
-function InstalmentHistoriesTable({ detail }) {
+
+function CreditHistoriesTable({ detail }) {
   const [editId, setEditedId] = useState(null);
   const [editData, setEditedData] = useState(null);
   const [dataSource, setDataSource] = useState(
-    detail?.installmentContractSchedule || []
+    detail?.mortgageContractSchedule || []
   );
 
   const [makePayment] = useMutation(
@@ -27,10 +33,10 @@ function InstalmentHistoriesTable({ detail }) {
       onSuccess: (d) => {
         setDataSource(
           dataSource.map((item) => {
-            if (item?.id === d.makeInstallmentPayments?.id) {
+            if (item?.id === d.makeMortgagePayments?.id) {
               const newItem = {
                 ...item,
-                isDone: d.makeInstallmentPayments.isDone,
+                isDone: d.makeMortgagePayments.isDone,
               };
               return newItem;
             }
@@ -50,6 +56,7 @@ function InstalmentHistoriesTable({ detail }) {
     })
   );
 
+
   const checkedInstalment = (record) => {
     if (!record) return;
 
@@ -62,7 +69,7 @@ function InstalmentHistoriesTable({ detail }) {
       },
       refetchQueries: [
         {
-          query: GET_INSTALMENTS,
+          query: GET_CREDITS,
         },
       ],
     });
@@ -71,7 +78,7 @@ function InstalmentHistoriesTable({ detail }) {
   const handleOnUpdateNote = (id, note) => {
     updateNote({
       variables: {
-        updateInstallmentContractScheduleInput: {
+        updateMortgageContractScheduleInput: {
           note,
           id,
         },
@@ -101,16 +108,16 @@ function InstalmentHistoriesTable({ detail }) {
       },
     },
     {
-      title: "Tiền họ",
+      title: "Tiền lãi",
       key: "payMoney",
       dataIndex: "payMoney",
       render: (value) => formatCurrency(value),
     },
-    // {
-    //   title: "Ngày giao dịch",
-    //   dataIndex: "payDate",
-    //   render: (value) => formatDDMMYYYY(value),
-    // },
+    {
+      title: "Tiền khách trả",
+      dataIndex: "interestMoneyReceived",
+      render: (value) => formatCurrency(value),
+    },
     {
       title: "Đã trả",
       dataIndex: "isDone",
@@ -142,9 +149,9 @@ function InstalmentHistoriesTable({ detail }) {
                   if (!e) return;
                   setEditedId(record.id), setEditedData(e.target.value);
                 }}
-                value={editData ? editData : value}
+                value={editData && editId === record.id ? editData : value}
               />
-              {!!editId && (
+              {!!editId && editId === record.id && (
                 <>
                   <CheckOutlined
                     style={{
@@ -172,15 +179,14 @@ function InstalmentHistoriesTable({ detail }) {
 
   useEffect(() => {
     if (detail) {
-      setDataSource(detail.installmentContractSchedule || [])
+      setDataSource(detail.mortgageContractSchedule || [])
     }   
   }, [detail])
-
 
   return (
     <>
       <div className="text-center text-lg font-bold mt-6 mb-2 text-i">
-        Lịch sử đóng tiền
+        Lịch sử đóng tiền lãi
       </div>
       <Table
         columns={columns}
@@ -192,4 +198,4 @@ function InstalmentHistoriesTable({ detail }) {
   );
 }
 
-export default InstalmentHistoriesTable;
+export default CreditHistoriesTable;

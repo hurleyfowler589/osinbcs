@@ -2,7 +2,7 @@ import { Button, Card, Input } from "antd";
 import { useContext } from "react";
 import CreateCreditContext from "../context/credit/create-credit-context";
 import withCreateCreditModal from "../hoc/credit/with-create-credit-modal";
-import CreditTable from "./CreditTable";
+import CreditTable from "./credit-table";
 const { Search } = Input;
 
 function Credit() {
@@ -15,7 +15,7 @@ function Credit() {
       <p className="mb-2 text-lg font-semibold">Hợp đồng Tín Chấp</p>
       <div className="flex justify-between mb-4">
         <Button onClick={() => createCreditContext.openModal()} type="primary">
-          Thêm hợp đồng mới
+          Thêm hợp đồng
         </Button>
         <Search
           placeholder="Tìm kiếm tên khách hàng..."
