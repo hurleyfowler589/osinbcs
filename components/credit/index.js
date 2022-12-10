@@ -3,10 +3,10 @@ import { useContext } from "react";
 import CreateCreditContext from "../context/credit/create-credit-context";
 import withCreateCreditModal from "../hoc/credit/with-create-credit-modal";
 import CreditTable from "./credit-table";
-const { Search } = Input;
+// const { Search } = Input;
 
 function Credit() {
-  const onSearch = (value) => console.log(value);
+  // const onSearch = (value) => console.log(value);
 
   const createCreditContext = useContext(CreateCreditContext);
 
@@ -17,14 +17,14 @@ function Credit() {
         <Button onClick={() => createCreditContext.openModal()} type="primary">
           Thêm hợp đồng
         </Button>
-        <Search
+        {/* <Search
           placeholder="Tìm kiếm tên khách hàng..."
           allowClear
           enterButton="Tìm kiếm"
           size="normal"
           className="w-1/3"
           onSearch={onSearch}
-        />
+        /> */}
       </div>
       <CreditTable />
     </Card>

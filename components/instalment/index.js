@@ -22,14 +22,14 @@ function Instalment() {
         >
           Thêm hợp đồng
         </Button>
-        <Search
+        {/* <Search
           placeholder="Tìm kiếm tên khách hàng..."
           allowClear
           enterButton="Tìm kiếm"
           size="normal"
           className="w-1/3"
           onSearch={onSearch}
-        />
+        /> */}
       </div>
       <InstalmentTable />
     </Card>

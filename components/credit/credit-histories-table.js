@@ -1,7 +1,7 @@
 import {
   ArrowRightOutlined,
-  CheckOutlined,
-  CloseOutlined,
+  // CheckOutlined,
+  // CloseOutlined,
 } from "@ant-design/icons";
 import { useMutation } from "@apollo/client";
 import { Checkbox, Input, Popconfirm, Table } from "antd";
@@ -13,16 +13,16 @@ import {
 } from "../../helpers/common";
 import {
   GET_CREDITS,
-  GET_INSTALMENTS,
+  // GET_INSTALMENTS,
   MAKE_PAYMENT,
-  UPDATE_NOTE,
+  // UPDATE_NOTE,
 } from "./query";
 
-const { TextArea } = Input;
+// const { TextArea } = Input;
 
 function CreditHistoriesTable({ detail }) {
-  const [editId, setEditedId] = useState(null);
-  const [editData, setEditedData] = useState(null);
+  // const [editId, setEditedId] = useState(null);
+  // const [editData, setEditedData] = useState(null);
   const [dataSource, setDataSource] = useState(
     detail?.mortgageContractSchedule || []
   );
@@ -47,14 +47,14 @@ function CreditHistoriesTable({ detail }) {
     })
   );
 
-  const [updateNote] = useMutation(
-    UPDATE_NOTE,
-    handleResponse({
-      onSuccess: () => {
-        setEditedId(null);
-      },
-    })
-  );
+  // const [updateNote] = useMutation(
+  //   UPDATE_NOTE,
+  //   handleResponse({
+  //     onSuccess: () => {
+  //       setEditedId(null);
+  //     },
+  //   })
+  // );
 
 
   const checkedInstalment = (record) => {
@@ -75,16 +75,16 @@ function CreditHistoriesTable({ detail }) {
     });
   };
 
-  const handleOnUpdateNote = (id, note) => {
-    updateNote({
-      variables: {
-        updateMortgageContractScheduleInput: {
-          note,
-          id,
-        },
-      },
-    });
-  };
+  // const handleOnUpdateNote = (id, note) => {
+  //   updateNote({
+  //     variables: {
+  //       updateMortgageContractScheduleInput: {
+  //         note,
+  //         id,
+  //       },
+  //     },
+  //   });
+  // };
 
   const columns = [
     {
@@ -107,17 +107,22 @@ function CreditHistoriesTable({ detail }) {
         );
       },
     },
+     {
+      title: "Số ngày",
+      dataIndex: "frequency",
+      render: (value) => value,
+    },
     {
       title: "Tiền lãi",
       key: "payMoney",
       dataIndex: "payMoney",
       render: (value) => formatCurrency(value),
     },
-    {
-      title: "Tiền khách trả",
-      dataIndex: "interestMoneyReceived",
-      render: (value) => formatCurrency(value),
-    },
+    // {
+    //   title: "Tiền khách trả",
+    //   dataIndex: "interestMoneyReceived",
+    //   render: (value) => formatCurrency(value),
+    // },
     {
       title: "Đã trả",
       dataIndex: "isDone",
@@ -135,46 +140,46 @@ function CreditHistoriesTable({ detail }) {
         );
       },
     },
-    {
-      title: "Ghi chú",
-      dataIndex: "note",
-      render: (value, record, index) => {
-        return (
-          <>
-            <div className="text-right">
-              <TextArea
-                placeholder="Nhập ghi chú"
-                autoSize
-                onChange={(e) => {
-                  if (!e) return;
-                  setEditedId(record.id), setEditedData(e.target.value);
-                }}
-                value={editData && editId === record.id ? editData : value}
-              />
-              {!!editId && editId === record.id && (
-                <>
-                  <CheckOutlined
-                    style={{
-                      color: "var(--textPrimary)",
-                      fontSize: "16px",
-                      marginRight: "10px",
-                    }}
-                    onClick={() => handleOnUpdateNote(record?.id, editData)}
-                  />
-                  <CloseOutlined
-                    style={{ color: "red", fontSize: "16px" }}
-                    onClick={() => {
-                      setEditedData(null);
-                      setEditedId(null);
-                    }}
-                  />
-                </>
-              )}
-            </div>
-          </>
-        );
-      },
-    },
+    // {
+    //   title: "Ghi chú",
+    //   dataIndex: "note",
+    //   render: (value, record, index) => {
+    //     return (
+    //       <>
+    //         <div className="text-right">
+    //           <TextArea
+    //             placeholder="Nhập ghi chú"
+    //             autoSize
+    //             onChange={(e) => {
+    //               if (!e) return;
+    //               setEditedId(record.id), setEditedData(e.target.value);
+    //             }}
+    //             value={editData && editId === record.id ? editData : value}
+    //           />
+    //           {!!editId && editId === record.id && (
+    //             <>
+    //               <CheckOutlined
+    //                 style={{
+    //                   color: "var(--textPrimary)",
+    //                   fontSize: "16px",
+    //                   marginRight: "10px",
+    //                 }}
+    //                 onClick={() => handleOnUpdateNote(record?.id, editData)}
+    //               />
+    //               <CloseOutlined
+    //                 style={{ color: "red", fontSize: "16px" }}
+    //                 onClick={() => {
+    //                   setEditedData(null);
+    //                   setEditedId(null);
+    //                 }}
+    //               />
+    //             </>
+    //           )}
+    //         </div>
+    //       </>
+    //     );
+    //   },
+    // },
   ];
 
   useEffect(() => {

@@ -37,7 +37,7 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
           customerPhone: values.customerPhone,
           frequency: values.frequency,
           fromDate: values.fromDate.format(),
-          interest: values.interest,
+          interest: values.interest * 1000,
           loanTime: values.loanTime,
           note: values.note,
           totalMoney: values.totalMoney,
@@ -95,8 +95,7 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
             label="Số điện thoại"
             rules={[
               {
-                required: true,
-                message: "Nhập số điện thoại!",
+                required: false,
               },
             ]}
           >
@@ -175,7 +174,7 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
             <InputNumber
               addonAfter={
                 <Form.Item name="suffix" noStyle>
-                  k/1 ngày
+                  k/1 triệu
                 </Form.Item>
               }
               style={{ width: "100%" }}

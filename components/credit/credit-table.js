@@ -28,7 +28,7 @@ const COLUMNS = [
     key: "customerName",
   },
   {
-    title: "Tài sản",
+    title: "VNĐ",
     dataIndex: "totalMoney",
     key: "totalMoney",
     render: (value) => formatCurrency(value),

@@ -81,12 +81,6 @@ const COLUMNS = [
       )
     }
   },
-  {
-    title: "Ngày phải đóng",
-    dataIndex: "fromDate",
-    key: "fromDate",
-    render: (value) => formatDDMMYYYY(value)
-  },
 ];
 
 function InstalmentTable() {

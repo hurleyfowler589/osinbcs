@@ -99,8 +99,7 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
             label="Số điện thoại"
             rules={[
               {
-                required: true,
-                message: "Nhập số điện thoại!",
+                required: false,
               },
             ]}
           >

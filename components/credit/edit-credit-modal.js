@@ -104,8 +104,7 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
             label="Số điện thoại"
             rules={[
               {
-                required: true,
-                message: "Nhập số điện thoại!",
+                required: false,
               },
             ]}
             initialValue={detail?.customerPhone}

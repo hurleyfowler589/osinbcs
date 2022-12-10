@@ -4,7 +4,6 @@ import { INSTALMENT_STATUS_COLOR, CREDIT_STATUS_LABEL } from "../common";
 import CreditHistoriesTable from "./credit-histories-table";
 
 const CreditDetail = ({ detail }) => {
-  console.log("detail-----", detail);
   return (
     <div className="flex flex-row gap-8 instalment-detail">
       <div className="flex flex-col w-full">
@@ -17,14 +16,14 @@ const CreditDetail = ({ detail }) => {
               <td className="border font-bold">Tiền vay</td>
               <td className="border"></td>
               <td className="border text-right">
-                {formatCurrency(detail?.frequencyMoney)}
+                {formatCurrency(detail?.totalMoney)}
               </td>
             </tr>
             <tr className="border">
               <td className="border font-bold">Lãi suất</td>
               <td className="border"></td>
               <td className="border text-right">
-                {formatCurrency(detail?.interest)}/1 ngày
+                {formatCurrency(detail?.interest )}/1 triệu
               </td>
             </tr>
             <tr className="border">
@@ -69,7 +68,7 @@ const CreditDetail = ({ detail }) => {
               <td className="font-bold">Trạng thái</td>
               <td className="border text-right">
                 <Tag color={INSTALMENT_STATUS_COLOR[detail?.status]}>
-                  {CREDIT_STATUS_LABEL[detail?.status].toUpperCase()}
+                  {(CREDIT_STATUS_LABEL[detail?.status] || '').toUpperCase()}
                 </Tag>
               </td>
             </tr>

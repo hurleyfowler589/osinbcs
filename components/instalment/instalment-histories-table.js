@@ -1,7 +1,7 @@
 import {
   ArrowRightOutlined,
-  CheckOutlined,
-  CloseOutlined,
+  // CheckOutlined,
+  // CloseOutlined,
 } from "@ant-design/icons";
 import { useMutation } from "@apollo/client";
 import { Checkbox, Input, Popconfirm, Table } from "antd";
@@ -15,8 +15,8 @@ import { GET_INSTALMENTS, MAKE_PAYMENT, UPDATE_NOTE } from "./query";
 
 const { TextArea } = Input;
 function InstalmentHistoriesTable({ detail }) {
-  const [editId, setEditedId] = useState(null);
-  const [editData, setEditedData] = useState(null);
+  // const [editId, setEditedId] = useState(null);
+  // const [editData, setEditedData] = useState(null);
   const [dataSource, setDataSource] = useState(
     detail?.installmentContractSchedule || []
   );
@@ -41,14 +41,14 @@ function InstalmentHistoriesTable({ detail }) {
     })
   );
 
-  const [updateNote] = useMutation(
-    UPDATE_NOTE,
-    handleResponse({
-      onSuccess: () => {
-        setEditedId(null);
-      },
-    })
-  );
+  // const [updateNote] = useMutation(
+  //   UPDATE_NOTE,
+  //   handleResponse({
+  //     onSuccess: () => {
+  //       setEditedId(null);
+  //     },
+  //   })
+  // );
 
   const checkedInstalment = (record) => {
     if (!record) return;
@@ -68,16 +68,16 @@ function InstalmentHistoriesTable({ detail }) {
     });
   };
 
-  const handleOnUpdateNote = (id, note) => {
-    updateNote({
-      variables: {
-        updateInstallmentContractScheduleInput: {
-          note,
-          id,
-        },
-      },
-    });
-  };
+  // const handleOnUpdateNote = (id, note) => {
+  //   updateNote({
+  //     variables: {
+  //       updateInstallmentContractScheduleInput: {
+  //         note,
+  //         id,
+  //       },
+  //     },
+  //   });
+  // };
 
   const columns = [
     {
@@ -128,46 +128,46 @@ function InstalmentHistoriesTable({ detail }) {
         );
       },
     },
-    {
-      title: "Ghi chú",
-      dataIndex: "note",
-      render: (value, record, index) => {
-        return (
-          <>
-            <div className="text-right">
-              <TextArea
-                placeholder="Nhập ghi chú"
-                autoSize
-                onChange={(e) => {
-                  if (!e) return;
-                  setEditedId(record.id), setEditedData(e.target.value);
-                }}
-                value={editData ? editData : value}
-              />
-              {!!editId && (
-                <>
-                  <CheckOutlined
-                    style={{
-                      color: "var(--textPrimary)",
-                      fontSize: "16px",
-                      marginRight: "10px",
-                    }}
-                    onClick={() => handleOnUpdateNote(record?.id, editData)}
-                  />
-                  <CloseOutlined
-                    style={{ color: "red", fontSize: "16px" }}
-                    onClick={() => {
-                      setEditedData(null);
-                      setEditedId(null);
-                    }}
-                  />
-                </>
-              )}
-            </div>
-          </>
-        );
-      },
-    },
+    // {
+    //   title: "Ghi chú",
+    //   dataIndex: "note",
+    //   render: (value, record, index) => {
+    //     return (
+    //       <>
+    //         <div className="text-right">
+    //           <TextArea
+    //             placeholder="Nhập ghi chú"
+    //             autoSize
+    //             onChange={(e) => {
+    //               if (!e) return;
+    //               setEditedId(record.id), setEditedData(e.target.value);
+    //             }}
+    //             value={editData ? editData : value}
+    //           />
+    //           {!!editId && (
+    //             <>
+    //               <CheckOutlined
+    //                 style={{
+    //                   color: "var(--textPrimary)",
+    //                   fontSize: "16px",
+    //                   marginRight: "10px",
+    //                 }}
+    //                 onClick={() => handleOnUpdateNote(record?.id, editData)}
+    //               />
+    //               <CloseOutlined
+    //                 style={{ color: "red", fontSize: "16px" }}
+    //                 onClick={() => {
+    //                   setEditedData(null);
+    //                   setEditedId(null);
+    //                 }}
+    //               />
+    //             </>
+    //           )}
+    //         </div>
+    //       </>
+    //     );
+    //   },
+    // },
   ];
 
   useEffect(() => {

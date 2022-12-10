@@ -1,4 +1,4 @@
-import { Button, Modal, Tag } from "antd";
+import { Modal, Tag } from "antd";
 import { formatCurrency, formatDDMMYYYY } from "../../helpers/common";
 import { INSTALMENT_STATUS_COLOR, INSTALMENT_STATUS_LABEL } from "../common";
 import InstalmentHistoriesTable from "./instalment-histories-table";
@@ -16,7 +16,7 @@ const InstalmentDetail = ({ detail }) => {
               <td className="border font-bold">Trả góp</td>
               <td className="border"></td>
               <td className="border text-right">
-                {formatCurrency(detail?.frequencyMoney)}
+                {formatCurrency(detail?.totalMoney)}
               </td>
             </tr>
             <tr className="border">
@@ -53,15 +53,15 @@ const InstalmentDetail = ({ detail }) => {
         <table class="table-auto border ">
           <tbody>
             <tr className="border">
-              <td className="font-bold">Số Tiền khách giao</td>
+              <td className="font-bold">Số Tiền giao khách</td>
               <td className="border text-right">
-                {formatCurrency(detail?.totalMoney)}
+                {formatCurrency(detail?.totalMoneyReceived)}
               </td>
             </tr>
             <tr className="border">
-              <td className="font-bold">Số tiền phải đóng</td>
+              <td className="font-bold">Tổng tiền phải đóng</td>
               <td className="border text-right">
-                {formatCurrency(detail?.totalMoneyCurrent)}
+                {formatCurrency(detail?.totalMoney)}
               </td>
             </tr>
             <tr className="border">
@@ -80,7 +80,9 @@ const InstalmentDetail = ({ detail }) => {
               <td className="font-bold">Trạng thái</td>
               <td className="border text-right">
                 <Tag color={INSTALMENT_STATUS_COLOR[detail?.status]}>
-                  {INSTALMENT_STATUS_LABEL[detail?.status].toUpperCase()}
+                  {(
+                    INSTALMENT_STATUS_LABEL[detail?.status] || ""
+                  ).toUpperCase()}
                 </Tag>
               </td>
             </tr>
