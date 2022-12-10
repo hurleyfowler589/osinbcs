@@ -1,16 +1,10 @@
 import { useContext } from "react";
 import { useMutation } from "@apollo/client";
-import moment from 'moment'
-import {
-  Button,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Modal,
-} from "antd";
+import moment from "moment";
+import { Button, DatePicker, Form, Input, InputNumber, Modal } from "antd";
 import AddToastContext from "../context/add-toast.context";
 import { CREATE_INSTALMENT, GET_INSTALMENTS } from "./query";
+import { handleResponse } from "../../helpers/common";
 
 const layout = {
   labelCol: {
@@ -25,22 +19,17 @@ const { TextArea } = Input;
 
 function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
   const [form] = Form.useForm();
-  const { submit, resetFields } = form 
-  const addToast = useContext(AddToastContext);
+  const { submit, resetFields } = form;
 
-  const [createInstalment] = useMutation(CREATE_INSTALMENT, {
-    onCompleted: (data) => {
-      if (data) {
-        addToast.success();
+  const [createInstalment] = useMutation(
+    CREATE_INSTALMENT,
+    handleResponse({
+      onSuccess: () => {
         closeModal();
-        resetFields()
-      }
-    },
-    onError: (error) => {
-      console.log(error)
-      addToast.error();
-    },
-  });
+        resetFields();
+      },
+    })
+  );
 
   const onFinish = (values) => {
     createInstalment({
@@ -57,10 +46,10 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
         },
       },
       refetchQueries: [
-        { 
-          query: GET_INSTALMENTS
-        }
-      ]
+        {
+          query: GET_INSTALMENTS,
+        },
+      ],
     });
   };
 
@@ -72,8 +61,8 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
         title="Thêm mới hợp đồng"
         onOk={handleOk}
         onCancel={() => {
-          closeModal()
-          resetFields()
+          closeModal();
+          resetFields();
         }}
         footer={[
           <div className="text-center">
@@ -81,7 +70,7 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
               type="default"
               onClick={() => {
                 closeModal();
-                form.resetFields()
+                form.resetFields();
               }}
             >
               Đóng

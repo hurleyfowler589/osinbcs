@@ -28,8 +28,12 @@ const InstalmentDetail = ({ detail }) => {
             </tr>
             <tr className="border">
               <td className="border font-bold">Họ từ ngày</td>
-              <td className="border text-right">{formatDDMMYYYY(detail?.fromDate)}</td>
-              <td className="border text-right">{formatDDMMYYYY(detail?.toDate)}</td>
+              <td className="border text-right">
+                {formatDDMMYYYY(detail?.fromDate)}
+              </td>
+              <td className="border text-right">
+                {formatDDMMYYYY(detail?.toDate)}
+              </td>
             </tr>
             {/* <tr className="border">
               <td className="border font-bold">Nợ cũ KH</td>
@@ -50,7 +54,9 @@ const InstalmentDetail = ({ detail }) => {
           <tbody>
             <tr className="border">
               <td className="font-bold">Số Tiền khách giao</td>
-              <td className="border text-right">{formatCurrency(detail?.totalMoney)}</td>
+              <td className="border text-right">
+                {formatCurrency(detail?.totalMoney)}
+              </td>
             </tr>
             <tr className="border">
               <td className="font-bold">Số tiền phải đóng</td>
@@ -98,7 +104,7 @@ function InstalmentHistoriesModal({
       <Modal
         open={isModalOpen}
         width={1000}
-        title="Bảng chi tiết Hợp đồng Trả Góp"
+        title={`Bảng chi tiết Hợp đồng Trả Góp`}
         onOk={handleOk}
         onCancel={closeModal}
         footer={[]}

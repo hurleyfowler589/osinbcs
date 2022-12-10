@@ -115,10 +115,34 @@ export const UPDATE_INSTALMENT = gql`
     updateInstallmentContract(
       updateInstallmentContractInput: $updateInstallmentContractInput
     ) {
-      id
+      createdAt
       customerName
       customerPhone
+      frequency
+      frequencyMoney
+      fromDate
+      id
+      installmentContractSchedule {
+        createdAt
+        fromDate
+        id
+        installmentContractId
+        isDone
+        note
+        payDate
+        payMoney
+        toDate
+        updatedAt
+      }
+      loanTime
       note
+      rate
+      status
+      toDate
+      totalMoney
+      totalMoneyCurrent
+      totalMoneyReceived
+      updatedAt
     }
   }
 `;

@@ -1,10 +1,9 @@
-import { useContext, useMemo } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import moment from "moment";
 import { Button, DatePicker, Form, Input, InputNumber, Modal } from "antd";
-import AddToastContext from "../context/add-toast.context";
 import { GET_INSTALMENT_DETAIL, UPDATE_INSTALMENT } from "./query";
-import Loading from "../common/Loading";
+import { handleResponse } from "../../helpers/common";
+import { useEffect, useMemo } from "react";
 
 const layout = {
   labelCol: {
@@ -21,29 +20,31 @@ function EditInstalmentModal({
   isModalOpen,
   handleOk,
   closeModal,
-  detail = {}, // TODO REMOVE
+  detail = {},
 }) {
   const [form] = Form.useForm();
   const { submit, resetFields } = form;
-  const addToast = useContext(AddToastContext);
 
-  // const { data: detail, loading } = useQuery(GET_INSTALMENT_DETAIL, {
-  //   variables: test?.id
-  // })
-
-  const [updateInstalment] = useMutation(UPDATE_INSTALMENT, {
-    onCompleted: (data) => {
-      if (data) {
+  const [updateInstalment] = useMutation(
+    UPDATE_INSTALMENT,
+    handleResponse({
+      onSuccess: (d) => {
         resetFields();
-        addToast.success("Câp nhật thành công");
         closeModal();
-      }
-    },
-    onError: (error) => {
-      console.log(error);
-      addToast.error();
-    },
-  });
+      },
+      successMsg: "Câp nhật thành công",
+    })
+  );
+
+  useEffect(() => {
+    if (detail) {
+      form.setFieldsValue({
+        ...detail,
+        fromDate: moment(detail.fromDate),
+        note: moment(detail.note),
+      });
+    }
+  }, detail);
 
   const onFinish = (values) => {
     updateInstalment({
@@ -58,23 +59,23 @@ function EditInstalmentModal({
     });
   };
 
+  const onClose = () => {
+    closeModal();
+    form.resetFields();
+  };
+
   return (
     <>
       <Modal
         open={isModalOpen}
         width={700}
-        title="Cập nhật hợp đồng"
-        onOk={handleOk}
-        onCancel={closeModal}
+        title={`Cập nhật hợp đồng`}
+        onOk={onClose}
+        onCancel={onClose}
+        destroyOnClose={true}
         footer={[
           <div className="text-center">
-            <Button
-              type="default"
-              onClick={() => {
-                closeModal();
-                form.resetFields();
-              }}
-            >
+            <Button type="default" onClick={onClose}>
               Đóng
             </Button>
             <Button key="submit" type="primary" onClick={submit}>

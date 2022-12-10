@@ -4,7 +4,7 @@ import { GET_INSTALMENTS } from "./query";
 import { useQuery } from "@apollo/client";
 import Loading from "../common/Loading";
 import { DeleteInstalmentConfirm } from "./delete-instalment-confirm";
-import { EditOutlined, SolutionOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined, EditOutlined, SolutionOutlined } from "@ant-design/icons";
 import withEditInstalmentModal from "../hoc/instalment/with-edit-instalment-modal";
 import { useContext } from "react";
 import EditInstalmentContext from "../context/instalment/edit-instalment.context";
@@ -46,14 +46,14 @@ const COLUMNS = [
     key: "time",
     render: (_value, record) => {
       if (!record.toDate || !record.fromDate) return "";
-      const { fromDate, toDate } = record;
       return (
-        <div className="text-center">
-          <p>
-            {formatDDMMYYYY(fromDate)} -{">"} {formatDDMMYYYY(toDate)}
-          </p>
-          <p>({moment(toDate).diff(moment(fromDate), "day")} Ngày)</p>
+        <div className="flex justify-around">
+        <div>{formatDDMMYYYY(record?.fromDate)}</div>
+        <div className="flex items-center">
+          <ArrowRightOutlined />
         </div>
+        <div>{formatDDMMYYYY(record?.toDate)}</div>
+      </div>
       );
     },
   },
@@ -76,7 +76,7 @@ const COLUMNS = [
     render: (value) => {
       return (
         <Tag color={INSTALMENT_STATUS_COLOR[value]} key={value}>
-          {INSTALMENT_STATUS_LABEL[value].toUpperCase()}
+          {(INSTALMENT_STATUS_LABEL[value] || '')?.toUpperCase()}
         </Tag>
       )
     }
