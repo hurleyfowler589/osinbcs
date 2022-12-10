@@ -11,4 +11,3 @@ export const INSTALMENT_STATUS_COLOR = {
   delay: "orange",
   expired: "red",
 };
-

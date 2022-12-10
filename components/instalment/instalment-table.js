@@ -96,9 +96,7 @@ function InstalmentTable() {
 
   if (loading) return <Loading />;
   if (error) return `Error! ${error.message}`;
-
-  const countries = data.installmentContracts;
-
+  
   const editContext = useContext(EditInstalmentContext);
   const historiesContext = useContext(InstalmentHistoriesContext);
 
@@ -129,7 +127,7 @@ function InstalmentTable() {
   return (
     <Table
       columns={columns}
-      dataSource={countries}
+      dataSource={data.installmentContracts || []}
       bordered
       className="overflow-auto"
     />

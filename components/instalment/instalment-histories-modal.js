@@ -1,4 +1,6 @@
-import { Button, Modal } from "antd";
+import { Button, Modal, Tag } from "antd";
+import { formatCurrency, formatDDMMYYYY } from "../../helpers/common";
+import { INSTALMENT_STATUS_COLOR, INSTALMENT_STATUS_LABEL } from "../common";
 import InstalmentHistoriesTable from "./instalment-histories-table";
 
 const InstalmentDetail = ({ detail }) => {
@@ -8,24 +10,28 @@ const InstalmentDetail = ({ detail }) => {
         <table class="table-auto border ">
           <tbody>
             <tr className="border">
-              <td className="font-bold">Nguyen Văn A</td>
+              <td className="font-bold">{detail?.customerName || ""}</td>
             </tr>
             <tr className="border">
               <td className="border font-bold">Trả góp</td>
               <td className="border"></td>
-              <td className="border">10000 VNĐ</td>
+              <td className="border text-right">
+                {formatCurrency(detail?.frequencyMoney)}
+              </td>
             </tr>
             <tr className="border">
               <td className="border font-bold">Tỉ lệ</td>
               <td className="border"></td>
-              <td className="border">10000 VNĐ</td>
+              <td className="border text-right">
+                10 ăn <b>{detail?.rate || 0}</b>
+              </td>
             </tr>
             <tr className="border">
               <td className="border font-bold">Họ từ ngày</td>
-              <td className="border">06/12/2022</td>
-              <td className="border">25/12/2922</td>
+              <td className="border text-right">{formatDDMMYYYY(detail?.fromDate)}</td>
+              <td className="border text-right">{formatDDMMYYYY(detail?.toDate)}</td>
             </tr>
-            <tr className="border">
+            {/* <tr className="border">
               <td className="border font-bold">Nợ cũ KH</td>
               <td className="border"></td>
               <td className="border">10000 VNĐ</td>
@@ -34,7 +40,7 @@ const InstalmentDetail = ({ detail }) => {
               <td className="border font-bold">Nợ cũ HĐ</td>
               <td className="border"></td>
               <td className="border">10000 VNĐ</td>
-            </tr>
+            </tr> */}
           </tbody>
         </table>
       </div>
@@ -44,27 +50,35 @@ const InstalmentDetail = ({ detail }) => {
           <tbody>
             <tr className="border">
               <td className="font-bold">Số Tiền khách giao</td>
-              <td className="border">10000 VNĐ</td>
+              <td className="border text-right">{formatCurrency(detail?.totalMoney)}</td>
             </tr>
             <tr className="border">
               <td className="font-bold">Số tiền phải đóng</td>
-              <td className="border">10000 VNĐ</td>
+              <td className="border text-right">
+                {formatCurrency(detail?.totalMoneyCurrent)}
+              </td>
             </tr>
             <tr className="border">
               <td className="font-bold">Đã đóng được</td>
-              <td className="border">10000 VNĐ</td>
+              <td className="border text-right">
+                {formatCurrency(detail?.totalMoneyReceived)}
+              </td>
             </tr>
             <tr className="border">
               <td className="font-bold">Còn lại phải đóng</td>
-              <td className="border">10000 VNĐ</td>
-            </tr>
-            <tr className="border">
-              <td className="font-bold">Tổng lãi</td>
-              <td className="border">10000 VNĐ</td>
+              <td className="border text-right">
+                {formatCurrency(
+                  detail?.totalMoneyCurrent - detail?.totalMoneyReceived
+                )}
+              </td>
             </tr>
             <tr className="border">
               <td className="font-bold">Trạng thái</td>
-              <td className="border">10000 VNĐ</td>
+              <td className="border text-right">
+                <Tag color={INSTALMENT_STATUS_COLOR[detail?.status]}>
+                  {INSTALMENT_STATUS_LABEL[detail?.status].toUpperCase()}
+                </Tag>
+              </td>
             </tr>
           </tbody>
         </table>
@@ -79,8 +93,6 @@ function InstalmentHistoriesModal({
   closeModal,
   detail,
 }) {
-  // data here
-  console.log("detail-----------", detail);
   return (
     <>
       <Modal

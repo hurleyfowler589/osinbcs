@@ -36,8 +36,8 @@ export const GET_INSTALMENTS = gql`
 `;
 
 export const MAKE_PAYMENT = gql`
-  mutation MakePayments($makePaymentInput: MakePaymentsInput!) {
-    makePayments(makePaymentInput: $makePaymentInput) {
+  mutation MakeInstallmentPayments($makePaymentInput: MakePaymentsInput!) {
+    makeInstallmentPayments(makePaymentInput: $makePaymentInput) {
       createdAt
       fromDate
       id
@@ -153,6 +153,27 @@ export const GET_INSTALMENT_DETAIL = gql`
       totalMoney
       totalMoneyCurrent
       totalMoneyReceived
+      updatedAt
+    }
+  }
+`;
+
+export const UPDATE_NOTE = gql`
+  mutation UpdateInstallmentContractSchedule(
+    $updateInstallmentContractScheduleInput: UpdateInstallmentContractScheduleInput!
+  ) {
+    updateInstallmentContractSchedule(
+      updateInstallmentContractScheduleInput: $updateInstallmentContractScheduleInput
+    ) {
+      createdAt
+      fromDate
+      id
+      installmentContractId
+      isDone
+      note
+      payDate
+      payMoney
+      toDate
       updatedAt
     }
   }
