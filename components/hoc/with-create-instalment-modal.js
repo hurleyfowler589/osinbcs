@@ -1,10 +1,9 @@
 import { useCallback, useState } from "react";
-import { Modal } from "antd";
-import CreateCreditContext from "../context/credit/create-credit-context";
-import CreateCreditModal from "../credit/CreateCreditModal";
+import CreateInstalmentContext from "../context/instalment/create-instalment.context";
+import CreateInstalmentModal from "../instalment/create-instalment-modal";
 
-export default function withCreateCreditModal(Components) {
-  return function withCreateCreditModalComponent(props) {
+export default function withCreateInstalmentModal(Components) {
+  return function withCreateInstalmentModalComponent(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const openModal = useCallback(() => {
@@ -21,7 +20,7 @@ export default function withCreateCreditModal(Components) {
 
     return (
       <>
-        <CreateCreditContext.Provider
+        <CreateInstalmentContext.Provider
           value={{
             isModalOpen: isModalOpen,
             closeModal: closeModal,
@@ -29,12 +28,12 @@ export default function withCreateCreditModal(Components) {
           }}
         >
           <Components {...props} />
-          <CreateCreditModal
+          <CreateInstalmentModal
             isModalOpen={isModalOpen}
             handleOk={handleOk}
             closeModal={closeModal}
           />
-        </CreateCreditContext.Provider>
+        </CreateInstalmentContext.Provider>
       </>
     );
   };

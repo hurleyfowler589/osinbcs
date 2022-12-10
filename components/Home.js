@@ -10,12 +10,13 @@ import {
 } from "@ant-design/icons";
 import Credit from "./credit";
 import Instalment from "./instalment";
+import withToast from "./hoc/with-toast";
 
 const { Header, Sider } = Layout;
 
 const Home = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [selected, setSelected] = useState("credit");
+  const [selected, setSelected] = useState("instalment");
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -100,4 +101,4 @@ const Home = () => {
     </Layout>
   );
 };
-export default Home;
+export default  withToast(Home);

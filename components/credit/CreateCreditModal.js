@@ -5,18 +5,17 @@ export default function CreateCreditModal({
   handleOk,
   closeModal,
 }) {
-  // use mutation here
   return (
     <>
       <Modal
         open={isModalOpen}
         width={700}
-        title="Thêm mới hợp đồng Tín Chấp"
+        title="Thêm mới hợp đồng"
         onOk={handleOk}
         onCancel={closeModal}
         footer={[
           <Button type="default" onClick={closeModal}>
-            Đóng 
+            Đóng
           </Button>,
           <Button key="submit" type="primary" onClick={handleOk}>
             Lưu lại

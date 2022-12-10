@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import { DeleteCreditPopup } from "./DeleteCreditPopup";
 import Loading from "../common/Loading";
 import { useContext } from "react";
-import EditCreditContext from "../context/edit-credit-context";
+import EditCreditContext from "../context/credit/edit-credit-context";
 import withEditCreditModal from "../hoc/with-edit-credit-modal";
 import { EditOutlined } from "@ant-design/icons";
 

@@ -12,7 +12,7 @@ export default function Login() {
   const router = useRouter();
   return (
     <div className="login-body">
-      <div class="login">
+      <div className="login">
         <h1 className="mb-2 text-xl">Đăng nhập</h1>
         <Form
           name="basic"

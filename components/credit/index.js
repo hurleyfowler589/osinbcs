@@ -1,11 +1,11 @@
 import { Button, Card, Input } from "antd";
 import { useContext } from "react";
-import CreateCreditContext from "../context/create-credit-context";
+import CreateCreditContext from "../context/credit/create-credit-context";
 import withCreateCreditModal from "../hoc/with-create-credit-modal";
 import CreditTable from "./CreditTable";
 const { Search } = Input;
 
-function Instalment() {
+function Credit() {
   const onSearch = (value) => console.log(value);
 
   const createCreditContext = useContext(CreateCreditContext);
@@ -31,4 +31,4 @@ function Instalment() {
   );
 }
 
-export default withCreateCreditModal(Instalment);
+export default withCreateCreditModal(Credit);
