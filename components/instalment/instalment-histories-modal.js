@@ -67,15 +67,13 @@ const InstalmentDetail = ({ detail }) => {
             <tr className="border">
               <td className="font-bold">Đã đóng được</td>
               <td className="border text-right">
-                {formatCurrency(detail?.totalMoneyReceived)}
+                {formatCurrency(detail?.totalMoney - detail?.totalMoneyCurrent)}
               </td>
             </tr>
             <tr className="border">
               <td className="font-bold">Còn lại phải đóng</td>
               <td className="border text-right">
-                {formatCurrency(
-                  detail?.totalMoneyCurrent - detail?.totalMoneyReceived
-                )}
+                {formatCurrency(detail?.totalMoneyCurrent)}
               </td>
             </tr>
             <tr className="border">
@@ -104,7 +102,9 @@ function InstalmentHistoriesModal({
       <Modal
         open={isModalOpen}
         width={1000}
-        title={<div className="text-center uppercase">Chi tiết Hợp đồng Trả Góp</div>}
+        title={
+          <div className="text-center uppercase">Chi tiết Hợp đồng Trả Góp</div>
+        }
         onOk={handleOk}
         onCancel={closeModal}
         footer={[]}
