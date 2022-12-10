@@ -1,30 +1,26 @@
 import { useCallback, useState } from "react";
-import InstalmentHistoriesContext from "../context/instalment/instalment-histories.context";
-import InstalmentHistoriesModal from "../instalment/instalment-histories-modal";
+import CreateInstalmentContext from "../../context/instalment/create-instalment.context";
+import CreateInstalmentModal from "../../instalment/create-instalment-modal";
 
-export default function withInstalmentHistoriesModal(Components) {
-  return function withInstalmentHistoriesModalComponent(props) {
+export default function withCreateInstalmentModal(Components) {
+  return function withCreateInstalmentModalComponent(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [data, setData] = useState(null);
 
-    const openModal = useCallback((input) => {
+    const openModal = useCallback(() => {
       setIsModalOpen(true);
-      if (input) setData(input);
     }, []);
 
     const handleOk = useCallback(() => {
       setIsModalOpen(false);
-      setData(null)
     }, []);
 
     const closeModal = useCallback(() => {
       setIsModalOpen(false);
-      setData(null)
     }, []);
 
     return (
       <>
-        <InstalmentHistoriesContext.Provider
+        <CreateInstalmentContext.Provider
           value={{
             isModalOpen: isModalOpen,
             closeModal: closeModal,
@@ -32,13 +28,12 @@ export default function withInstalmentHistoriesModal(Components) {
           }}
         >
           <Components {...props} />
-          <InstalmentHistoriesModal
+          <CreateInstalmentModal
             isModalOpen={isModalOpen}
             handleOk={handleOk}
             closeModal={closeModal}
-            detail={data}
           />
-        </InstalmentHistoriesContext.Provider>
+        </CreateInstalmentContext.Provider>
       </>
     );
   };

@@ -1,31 +1,27 @@
 import { useCallback, useState } from "react";
-import EditInstalmentContext from "../context/instalment/edit-instalment.context";
-import EditInstalmentModal from "../instalment/edit-instalment-modal";
+import { Modal } from "antd";
+import CreateCreditContext from "../../context/credit/create-credit-context";
+import CreateCreditModal from "../../credit/CreateCreditModal";
 
-export default function withEditInstalmentModal(Components) {
-  return function withEditInstalmentModalComponent(props) {
+export default function withCreateCreditModal(Components) {
+  return function withCreateCreditModalComponent(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [data, setData] = useState(null);
 
-    const openModal = useCallback((input) => {
-      console.log('input----------', input)
+    const openModal = useCallback(() => {
       setIsModalOpen(true);
-      if (input) setData(input);
     }, []);
 
     const handleOk = useCallback(() => {
       setIsModalOpen(false);
-      setData(null)
     }, []);
 
     const closeModal = useCallback(() => {
       setIsModalOpen(false);
-      setData(null)
     }, []);
 
     return (
       <>
-        <EditInstalmentContext.Provider
+        <CreateCreditContext.Provider
           value={{
             isModalOpen: isModalOpen,
             closeModal: closeModal,
@@ -33,13 +29,12 @@ export default function withEditInstalmentModal(Components) {
           }}
         >
           <Components {...props} />
-          <EditInstalmentModal
+          <CreateCreditModal
             isModalOpen={isModalOpen}
             handleOk={handleOk}
             closeModal={closeModal}
-            detail={data}
           />
-        </EditInstalmentContext.Provider>
+        </CreateCreditContext.Provider>
       </>
     );
   };

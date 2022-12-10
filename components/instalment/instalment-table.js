@@ -4,10 +4,10 @@ import { useQuery } from "@apollo/client";
 import Loading from "../common/Loading";
 import { DeleteInstalmentConfirm } from "./delete-instalment-confirm";
 import { EditOutlined, SolutionOutlined } from "@ant-design/icons";
-import withEditInstalmentModal from "../hoc/with-edit-instalment-modal";
+import withEditInstalmentModal from "../hoc/instalment/with-edit-instalment-modal";
 import { useContext } from "react";
 import EditInstalmentContext from "../context/instalment/edit-instalment.context";
-import withInstalmentHistoriesModal from "../hoc/with-instalment-histories-modal";
+import withInstalmentHistoriesModal from "../hoc/instalment/with-instalment-histories-modal";
 import InstalmentHistoriesContext from "../context/instalment/instalment-histories.context";
 const COLUMNS = [
   {

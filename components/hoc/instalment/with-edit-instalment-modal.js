@@ -1,26 +1,30 @@
 import { useCallback, useState } from "react";
-import CreateInstalmentContext from "../context/instalment/create-instalment.context";
-import CreateInstalmentModal from "../instalment/create-instalment-modal";
+import EditInstalmentContext from "../../context/instalment/edit-instalment.context";
+import EditInstalmentModal from "../../instalment/edit-instalment-modal";
 
-export default function withCreateInstalmentModal(Components) {
-  return function withCreateInstalmentModalComponent(props) {
+export default function withEditInstalmentModal(Components) {
+  return function withEditInstalmentModalComponent(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [data, setData] = useState(null);
 
-    const openModal = useCallback(() => {
+    const openModal = useCallback((input) => {
       setIsModalOpen(true);
+      if (input) setData(input);
     }, []);
 
     const handleOk = useCallback(() => {
       setIsModalOpen(false);
+      setData(null)
     }, []);
 
     const closeModal = useCallback(() => {
       setIsModalOpen(false);
+      setData(null)
     }, []);
 
     return (
       <>
-        <CreateInstalmentContext.Provider
+        <EditInstalmentContext.Provider
           value={{
             isModalOpen: isModalOpen,
             closeModal: closeModal,
@@ -28,12 +32,13 @@ export default function withCreateInstalmentModal(Components) {
           }}
         >
           <Components {...props} />
-          <CreateInstalmentModal
+          <EditInstalmentModal
             isModalOpen={isModalOpen}
             handleOk={handleOk}
             closeModal={closeModal}
+            detail={data}
           />
-        </CreateInstalmentContext.Provider>
+        </EditInstalmentContext.Provider>
       </>
     );
   };

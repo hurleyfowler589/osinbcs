@@ -1,7 +1,6 @@
 import { useCallback, useState } from "react";
-import { Modal } from "antd";
-import EditCreditContext from "../context/credit/edit-credit-context";
-import EditCreditModal from "../credit/EditCreditModal";
+import EditCreditContext from "../../context/credit/edit-credit-context";
+import EditCreditModal from "../../credit/EditCreditModal";
 
 export default function withEditCreditModal(Components) {
   return function withEditCreditModalComponent(props) {

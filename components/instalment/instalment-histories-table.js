@@ -83,7 +83,7 @@ function InstalmentHistoriesTable({ data }) {
 
   return (
     <>
-      <div className="text-center text-lg font-bold mt-6 mb-2 text-i">Lịch sử giao dịch</div>
+      <div className="text-center text-lg font-bold mt-6 mb-2 text-i">Lịch sử đóng tiền</div>
       <Table
         columns={columns}
         dataSource={data || []}

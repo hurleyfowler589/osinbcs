@@ -1,7 +1,7 @@
 import { Button, Card, Input } from "antd";
 import { useContext } from "react";
 import CreateInstalmentContext from "../context/instalment/create-instalment.context";
-import withCreateInstalmentModal from "../hoc/with-create-instalment-modal";
+import withCreateInstalmentModal from "../hoc/instalment/with-create-instalment-modal";
 import InstalmentTable from "./instalment-table";
 const { Search } = Input;
 
