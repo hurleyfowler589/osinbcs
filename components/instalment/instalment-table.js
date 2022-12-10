@@ -1,5 +1,6 @@
 import { Space, Table, Tag } from "antd";
-import { GET_INSTALMENTS, GET_POLICIES } from "./query";
+import moment from "moment";
+import { GET_INSTALMENTS } from "./query";
 import { useQuery } from "@apollo/client";
 import Loading from "../common/Loading";
 import { DeleteInstalmentConfirm } from "./delete-instalment-confirm";
@@ -9,70 +10,82 @@ import { useContext } from "react";
 import EditInstalmentContext from "../context/instalment/edit-instalment.context";
 import withInstalmentHistoriesModal from "../hoc/instalment/with-instalment-histories-modal";
 import InstalmentHistoriesContext from "../context/instalment/instalment-histories.context";
+import { formatCurrency, formatDDMMYYYY } from "../../helpers/common";
+import { INSTALMENT_STATUS_COLOR, INSTALMENT_STATUS_LABEL } from "../common";
+
 const COLUMNS = [
   {
     title: "#",
     dataIndex: "index",
     key: "index",
-    render: (text) => <a>{text}</a>,
+    render: (_text, _record, index) => <a>{index + 1}</a>,
   },
   {
     title: "Khách hàng",
-    dataIndex: "khachHang",
-    key: "khachHang",
+    dataIndex: "customerName",
+    key: "customerName",
   },
   {
     title: "Tiền giao khách",
-    dataIndex: "tienGiaoKhach",
-    key: "tienGiaoKhach",
+    dataIndex: "totalMoney",
+    key: "totalMoney",
+    render: (value) => formatCurrency(value),
   },
   {
     title: "Tỷ lệ",
-    key: "tyLe",
-    dataIndex: "tyLe",
-  },
-  {
-    title: "Thời gian",
-    key: "action",
-  },
-  {
-    title: "Tiền đã đóng",
-    key: "action",
-  },
-  {
-    title: "Nợ cũ",
-    key: "action",
-  },
-  {
-    title: "Tiền 1 ngày",
-    key: "action",
-  },
-  {
-    title: "Còn phải đóng",
-    key: "action",
-  },
-  {
-    title: "Tình trạng",
-    key: "action",
-    render: (_, { countries = [] }) => (
-      <>
-        {countries.map((tag) => {
-          let color = tag.length > 5 ? "geekblue" : "green";
-          if (tag === "loser") {
-            color = "volcano";
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
+    dataIndex: "rate",
+    render: (value) => (
+      <p>
+        10 ăn <b>{value || 0}</b>
+      </p>
     ),
   },
   {
+    title: "Thời gian",
+    dataIndex: "time",
+    key: "time",
+    render: (_value, record) => {
+      if (!record.toDate || !record.fromDate) return "";
+      const { fromDate, toDate } = record;
+      return (
+        <div className="text-center">
+          <p>
+            {formatDDMMYYYY(fromDate)} -{">"} {formatDDMMYYYY(toDate)}
+          </p>
+          <p>({moment(toDate).diff(moment(fromDate), "day")} Ngày)</p>
+        </div>
+      );
+    },
+  },
+  {
+    title: "Tiền đã đóng",
+    dataIndex: "totalMoneyReceived",
+    key: "totalMoneyReceived",
+    render: (value) => formatCurrency(value),
+  },
+  {
+    title: "Còn phải đóng",
+    dataIndex: "totalMoneyCurrent",
+    key: "totalMoneyCurrent",
+    render: (value) => formatCurrency(value),
+  },
+  {
+    title: "Tình trạng",
+    dataIndex: "status",
+    key: "status",
+    render: (value) => {
+      return (
+        <Tag color={INSTALMENT_STATUS_COLOR[value]} key={value}>
+          {INSTALMENT_STATUS_LABEL[value].toUpperCase()}
+        </Tag>
+      )
+    }
+  },
+  {
     title: "Ngày phải đóng",
-    key: "test",
+    dataIndex: "loanTime",
+    key: "loanTime",
+    render: (value) => formatDDMMYYYY(value)
   },
 ];
 
@@ -84,8 +97,8 @@ function InstalmentTable() {
   if (loading) return <Loading />;
   if (error) return `Error! ${error.message}`;
 
-  const countries = data.countries;
-  
+  const countries = data.installmentContracts;
+
   const editContext = useContext(EditInstalmentContext);
   const historiesContext = useContext(InstalmentHistoriesContext);
 
@@ -96,21 +109,16 @@ function InstalmentTable() {
       render: (_, record) => (
         <Space size="middle">
           <SolutionOutlined
-            style={{ fontSize: "18px" }}
+            style={{ fontSize: "18px"}}
             title="Lịch sử  trả góp"
             onClick={() => historiesContext.openModal(record)}
           />
           <EditOutlined
             onClick={() => {
-              editContext.openModal({
-                id: 1,
-                customerName: "thanh",
-                customerPhone: "983234234",
-                note: "sfsdfdf",
-              });
+              editContext.openModal(record);
             }}
             title="Sửa"
-            style={{ fontSize: "18px" }}
+            style={{ fontSize: "18px", color: 'orange' }}
           />
           <DeleteInstalmentConfirm id={record.id} />
         </Space>

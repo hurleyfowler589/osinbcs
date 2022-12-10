@@ -1,9 +1,10 @@
-import { useContext } from "react";
-import { useMutation } from "@apollo/client";
+import { useContext, useMemo } from "react";
+import { useMutation, useQuery } from "@apollo/client";
 import moment from "moment";
 import { Button, DatePicker, Form, Input, InputNumber, Modal } from "antd";
 import AddToastContext from "../context/add-toast.context";
-import { UPDATE_INSTALMENT } from "./query";
+import { GET_INSTALMENT_DETAIL, UPDATE_INSTALMENT } from "./query";
+import Loading from "../common/Loading";
 
 const layout = {
   labelCol: {
@@ -20,18 +21,22 @@ function EditInstalmentModal({
   isModalOpen,
   handleOk,
   closeModal,
-  detail = {},
+  detail = {}, // TODO REMOVE
 }) {
   const [form] = Form.useForm();
   const { submit, resetFields } = form;
   const addToast = useContext(AddToastContext);
 
+  // const { data: detail, loading } = useQuery(GET_INSTALMENT_DETAIL, {
+  //   variables: test?.id
+  // })
+
   const [updateInstalment] = useMutation(UPDATE_INSTALMENT, {
     onCompleted: (data) => {
       if (data) {
-        addToast.success();
-        closeModal();
         resetFields();
+        addToast.success("Câp nhật thành công");
+        closeModal();
       }
     },
     onError: (error) => {
@@ -43,7 +48,7 @@ function EditInstalmentModal({
   const onFinish = (values) => {
     updateInstalment({
       variables: {
-        createInstallmentContractInput: {
+        updateInstallmentContractInput: {
           id: detail?.id,
           customerName: values.customerName,
           customerPhone: values.customerPhone,

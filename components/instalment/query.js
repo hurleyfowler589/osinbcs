@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const GET_INSTALMENTS_2 = gql`
+export const GET_INSTALMENTS = gql`
   query InstallmentContracts {
     installmentContracts {
       createdAt
@@ -31,16 +31,6 @@ export const GET_INSTALMENTS_2 = gql`
       totalMoneyCurrent
       totalMoneyReceived
       updatedAt
-    }
-  }
-`;
-
-export const GET_INSTALMENTS = gql`
-  query Countries {
-    countries {
-      code
-      name
-      emoji
     }
   }
 `;
@@ -126,6 +116,44 @@ export const UPDATE_INSTALMENT = gql`
       updateInstallmentContractInput: $updateInstallmentContractInput
     ) {
       id
+      customerName
+      customerPhone
+      note
+    }
+  }
+`;
+
+export const GET_INSTALMENT_DETAIL = gql`
+  query InstallmentContract($installmentContractId: Int!) {
+    installmentContract(id: $installmentContractId) {
+      createdAt
+      customerName
+      customerPhone
+      frequency
+      frequencyMoney
+      fromDate
+      id
+      installmentContractSchedule {
+        createdAt
+        fromDate
+        id
+        installmentContractId
+        isDone
+        note
+        payDate
+        payMoney
+        toDate
+        updatedAt
+      }
+      loanTime
+      note
+      rate
+      status
+      toDate
+      totalMoney
+      totalMoneyCurrent
+      totalMoneyReceived
+      updatedAt
     }
   }
 `;

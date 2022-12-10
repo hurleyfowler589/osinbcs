@@ -10,7 +10,7 @@ import {
   Modal,
 } from "antd";
 import AddToastContext from "../context/add-toast.context";
-import { CREATE_INSTALMENT } from "./query";
+import { CREATE_INSTALMENT, GET_INSTALMENTS } from "./query";
 
 const layout = {
   labelCol: {
@@ -56,6 +56,11 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
           totalMoney: values.totalMoney,
         },
       },
+      refetchQueries: [
+        { 
+          query: GET_INSTALMENTS
+        }
+      ]
     });
   };
 
@@ -66,7 +71,10 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
         width={700}
         title="Thêm mới hợp đồng"
         onOk={handleOk}
-        onCancel={closeModal}
+        onCancel={() => {
+          closeModal()
+          resetFields()
+        }}
         footer={[
           <div className="text-center">
             <Button
@@ -177,6 +185,8 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
             <InputNumber
               placeholder="Nhập số ngày đóng tiền"
               style={{ width: "100%" }}
+              max={1000}
+              min={0}
             />
           </Form.Item>
 
@@ -190,7 +200,7 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
               },
             ]}
           >
-            <DatePicker placeholder="Chọn ngày bốc" format="DD-MM-YYYY" />
+            <DatePicker placeholder="Chọn ngày bốc" format="DD/MM/YYYY" />
           </Form.Item>
 
           <Form.Item
