@@ -119,6 +119,10 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
                 </Form.Item>
               }
               style={{ width: "100%" }}
+              formatter={(value) =>
+                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              }
+              parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
             />
           </Form.Item>
 
@@ -135,6 +139,10 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
                 </Form.Item>
               }
               style={{ width: "100%" }}
+              formatter={(value) =>
+                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              }
+              parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
             />
           </Form.Item>
 
@@ -153,6 +161,10 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
             ]}
           >
             <InputNumber
+              formatter={(value) =>
+                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              }
+              parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
               addonAfter={
                 <Form.Item name="suffix" noStyle>
                   Ngày
@@ -169,6 +181,10 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
             rules={[{ required: true, message: "Nhập Số ngày đóng tiền!" }]}
           >
             <InputNumber
+              formatter={(value) =>
+                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              }
+              parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
               placeholder="Nhập số ngày đóng tiền"
               style={{ width: "100%" }}
               max={1000}

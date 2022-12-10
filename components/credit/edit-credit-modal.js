@@ -126,6 +126,10 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
                   VNĐ
                 </Form.Item>
               }
+              formatter={(value) =>
+                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              }
+              parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
               style={{ width: "100%" }}
               disabled
             />
@@ -196,6 +200,10 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
                   k/1 triệu
                 </Form.Item>
               }
+              formatter={(value) =>
+                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+              }
+              parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
               disabled
               style={{ width: "100%" }}
               placeholder="Nhập lãi"
