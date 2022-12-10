@@ -1,15 +1,43 @@
 import { Button, Checkbox, Form, Input } from "antd";
 import { useRouter } from "next/router";
+import { useContext } from "react";
+import AddToastContext from "../components/context/add-toast.context";
+import withToast from "../components/hoc/with-toast";
 
-export default function Login() {
-  const onFinish = (values) => {
-    console.log("Success:", values);
-  };
-  const onFinishFailed = (errorInfo) => {
-    console.log("Failed:", errorInfo);
-  };
-
+function Login() {
+  const addToast = useContext(AddToastContext)
   const router = useRouter();
+
+  const onFinish = (values) => {
+    const login = async () => {
+      const data = {
+        username: values.username,
+        password: values.password,
+      };
+
+      const response = await fetch(
+        `${process.env.GRAPPLE_API_URI}/auth/login`,
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      return response.json();
+    };
+    login().then((data) => {
+      if (!!data?.access_token) {
+        localStorage.setItem("token", data.access_token);
+        addToast.success("Đăng nhập thành công")
+        router.push("/");
+      } else { 
+        addToast.error("Tên đăng nhập và mặt khẩu không đúng!")
+      }
+    });
+  };
+
   return (
     <div className="login-body">
       <div className="login">
@@ -18,7 +46,6 @@ export default function Login() {
           name="basic"
           initialValues={{ remember: true }}
           onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
           <label className="text-white">Tên đăng nhập:</label>
@@ -39,11 +66,7 @@ export default function Login() {
             <Checkbox className="text-white">Ghi nhớ mật khẩu</Checkbox>
           </Form.Item>
           <Form.Item className="text-center">
-            <Button
-              type="primary"
-              htmlType="submit"
-              onClick={() => router.push("/")}
-            >
+            <Button type="primary" htmlType="submit">
               Đăng nhập
             </Button>
           </Form.Item>
@@ -52,3 +75,5 @@ export default function Login() {
     </div>
   );
 }
+
+export default withToast(Login);

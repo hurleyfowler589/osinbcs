@@ -1,9 +1,15 @@
-import Home from "./Home";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
-const PrivateLayout = ({ children, user, path = "/credit" }) => {
+const PrivateLayout = ({ children }) => {
+  const router = useRouter()
 
-  // TODO check token here, if not return to page unauthorize
+  useEffect(() => {
+    if (window) {
+      !localStorage.getItem('token') && router.push('/login')
+    }
+  }, [])
 
-  return <Home path={path}>{children}</Home>;
+  return children;
 };
 export default PrivateLayout;

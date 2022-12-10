@@ -1,6 +1,11 @@
 import Home from "../components/Home";
+import PrivateLayout from "../components/PrivateLayout";
 
 const App = () => {
-  return <Home />;
+  return (
+    <PrivateLayout>
+      <Home />
+    </PrivateLayout>
+  );
 };
 export default App;

@@ -74,7 +74,10 @@ const Home = () => {
                 menu={{
                   items: [
                     {
-                      label: <a href="/login">Thoát</a>,
+                      label: <a href="/login" onClick={() => {
+                        // remove token
+                        localStorage.removeItem('token')
+                      }}>Thoát</a>,
                       key: "0",
                     },
                   ],
