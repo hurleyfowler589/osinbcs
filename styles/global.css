@@ -291,3 +291,7 @@ button,
 .instalment-detail td { 
   padding: 8px
 }
+
+.total-table .ant-table-row:last-child {
+  font-weight: bold;
+}

@@ -12,6 +12,7 @@ export const GET_CREDITS = gql`
       interest
       interestMoneyReceived
       loanTime
+      interestToDay
       mortgageContractSchedule {
         createdAt
         frequency
@@ -50,6 +51,7 @@ export const CREATE_CREDIT = gql`
       id
       interest
       interestMoneyReceived
+      interestToDay
       loanTime
       note
       status
@@ -95,6 +97,7 @@ export const UPDATE_CREDIT = gql`
       totalInterest
       totalMoney
       updatedAt
+      interestToDay
       mortgageContractSchedule {
         createdAt
         frequency

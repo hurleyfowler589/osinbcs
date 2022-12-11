@@ -1,9 +1,9 @@
-import { Button,  Space, Table, Tag } from "antd";
+import { Button, Space, Table, Tag } from "antd";
 import { GET_CREDITS } from "./query";
 import { useQuery } from "@apollo/client";
+import sumBy from "lodash/sumBy";
 import {
   DeleteCreditConfirm,
-  DeleteCreditPopup,
 } from "./delete-credit-confirm";
 import Loading from "../common/Loading";
 import { useContext } from "react";
@@ -20,7 +20,7 @@ const COLUMNS = [
     title: "#",
     dataIndex: "index",
     key: "index",
-    render: (_text, _record, index) => <a>{index + 1}</a>,
+    render: (_text, record, index) => (record?.id ? <a>{index + 1}</a> : ""),
   },
   {
     title: "Khách hàng",
@@ -37,12 +37,15 @@ const COLUMNS = [
     title: "Ngày vay",
     key: "fromDate",
     dataIndex: "fromDate",
-    render: (value, record) => (
-      <div className="text-center">
-        <p>{formatDDMMYYYY(value)}</p>
-        <p className="font-thin">({record.loanTime} ngày)</p>
-      </div>
-    ),
+    render: (value, record) =>
+      value ? (
+        <div className="text-center">
+          <p>{formatDDMMYYYY(value)}</p>
+          <p className="font-thin">({record.loanTime} ngày)</p>
+        </div>
+      ) : (
+        ""
+      ),
   },
   {
     title: "Lãi đã đóng",
@@ -51,18 +54,35 @@ const COLUMNS = [
     render: (value) => formatCurrency(value),
   },
   {
+    title: "Lãi đến hôm nay",
+    key: "interestToDay",
+    dataIndex: "interestToDay",
+    render: (value) => formatCurrency(value), // TODO UPDATE LATER
+  },
+  {
     title: "Tình trạng",
     key: "status",
     dataIndex: "status",
     render: (value) => {
-      return (
+      return value ? (
         <Tag color={INSTALMENT_STATUS_COLOR[value]} key={value}>
           {(CREDIT_STATUS_LABEL[value] || "")?.toUpperCase()}
         </Tag>
+      ) : (
+        ""
       );
     },
   },
 ];
+
+const getTotals = (rows = []) => {
+  return {
+    customerName: "Tổng tiền",
+    totalMoney: sumBy(rows, "totalMoney"),
+    interestMoneyReceived: sumBy(rows, "interestMoneyReceived"),
+    interestToDay: sumBy(rows, "interestToDay"),
+  };
+};
 
 function CreditTable() {
   const { data, loading, error } = useQuery(GET_CREDITS, {
@@ -80,7 +100,7 @@ function CreditTable() {
       title: "Chức năng",
       key: "action",
       render: (_, record) => (
-        <Space size="middle">
+        record?.id ? <Space size="middle">
           <Button
             icon={<SolutionOutlined />}
             title="Lịch sử  đóng tiền lãi"
@@ -96,17 +116,20 @@ function CreditTable() {
             style={{ color: "#FF7000" }}
           />
           <DeleteCreditConfirm id={record.id} />
-        </Space>
+        </Space> : ''
       ),
     },
   ]);
 
+  const totalData = getTotals(data?.mortgageContracts || [])
+  const dataSource = (data?.mortgageContracts || []).concat([totalData]);
+
   return (
     <Table
       columns={columns}
-      dataSource={data?.mortgageContracts || []}
+      dataSource={dataSource}
       bordered
-      className="overflow-auto"
+      className="overflow-auto total-table"
     />
   );
 }
