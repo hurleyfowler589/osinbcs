@@ -122,7 +122,9 @@ function CreditTable() {
   ]);
 
   const totalData = getTotals(data?.mortgageContracts || [])
-  const dataSource = (data?.mortgageContracts || []).concat([totalData]);
+  const dataSource = (data?.mortgageContracts || [])?.length
+    ? [...data.mortgageContracts, totalData]
+    : [];
 
   return (
     <Table

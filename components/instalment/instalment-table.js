@@ -144,7 +144,9 @@ function InstalmentTable() {
   ]);
 
   const totalData = getTotals(data?.installmentContracts || []);
-  const dataSource = (data?.installmentContracts || []).concat([totalData]);
+  const dataSource = (data?.installmentContracts || [])?.length
+    ? [...data.installmentContracts, totalData]
+    : [];
 
   return (
     <Table
