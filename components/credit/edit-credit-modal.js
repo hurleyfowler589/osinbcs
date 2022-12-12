@@ -1,20 +1,13 @@
-import { useMutation, useQuery } from "@apollo/client";
-import moment from "moment";
-import { Button, DatePicker, Form, Input, InputNumber, Modal } from "antd";
-import {
-  GET_INSTALMENT_DETAIL,
-  UPDATE_CREDIT,
-  UPDATE_INSTALMENT,
-} from "./query";
-import { handleResponse } from "../../helpers/common";
-import { useEffect, useMemo } from "react";
+import { useMutation } from '@apollo/client';
+import moment from 'moment';
+import { Button, DatePicker, Form, Input, InputNumber, Modal } from 'antd';
+import { UPDATE_CREDIT } from './query';
+import { handleResponse } from '../../helpers/common';
+import { useEffect, useMemo } from 'react';
 
 const layout = {
   labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
+    span: 9,
   },
 };
 
@@ -30,7 +23,7 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
       onSuccess: (d) => {
         onClose();
       },
-      successMsg: "Câp nhật thành công",
+      successMsg: 'Câp nhật thành công',
     })
   );
 
@@ -71,9 +64,8 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
         onOk={onClose}
         onCancel={onClose}
         destroyOnClose={true}
-        // maskClosable={false}
         footer={[
-          <div className="text-center">
+          <div className="text-center form-footer">
             <Button type="default" onClick={onClose}>
               Đóng
             </Button>
@@ -87,13 +79,13 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
           {...layout}
           form={form}
           name="control-hooks"
-          className="mt-8 flex flex-col align-center w-10/12 gap-2"
+          className="mt-8 sm:mr-24 mx-auto flex flex-col align-center w-full sm:w-10/12 gap-2"
           onFinish={onFinish}
         >
           <Form.Item
             name="customerName"
             label="Tên khách hàng"
-            rules={[{ required: true, message: "Nhập tên khách hàng!" }]}
+            rules={[{ required: true, message: 'Nhập tên khách hàng!' }]}
             initialValue={detail?.customerName}
           >
             <Input placeholder="Nhập tên khách hàng" />
@@ -115,7 +107,7 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
           <Form.Item
             name="totalMoney"
             label="Tổng số tiền vay"
-            rules={[{ required: true, message: "Nhập số tiền vay!" }]}
+            rules={[{ required: true, message: 'Nhập số tiền vay!' }]}
             initialValue={detail?.totalMoney}
             disabled
           >
@@ -127,10 +119,10 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
                 </Form.Item>
               }
               formatter={(value) =>
-                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
               }
-              parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
-              style={{ width: "100%" }}
+              parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+              style={{ width: '100%' }}
               disabled
             />
           </Form.Item>
@@ -142,7 +134,7 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
           <Form.Item
             name="loanTime"
             label="Số ngày vay"
-            rules={[{ required: true, message: "Nhập Số ngày vay!" }]}
+            rules={[{ required: true, message: 'Nhập Số ngày vay!' }]}
             initialValue={detail?.loanTime}
           >
             <InputNumber
@@ -152,7 +144,7 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
                   Ngày
                 </Form.Item>
               }
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               disabled
             />
           </Form.Item>
@@ -163,7 +155,7 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
             rules={[
               {
                 required: true,
-                message: "Nhập Kỳ lãi!",
+                message: 'Nhập Kỳ lãi!',
               },
             ]}
             disabled
@@ -175,7 +167,7 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
                   Ngày
                 </Form.Item>
               }
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               placeholder="Nhập kỳ lãi"
               max={1000}
               min={0}
@@ -189,7 +181,7 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
             rules={[
               {
                 required: true,
-                message: "Nhập lãi!",
+                message: 'Nhập lãi!',
               },
             ]}
             initialValue={detail?.interest}
@@ -201,11 +193,11 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
                 </Form.Item>
               }
               formatter={(value) =>
-                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
               }
-              parser={(value) => value.replace(/\$\s?|(,*)/g, "")}
+              parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
               disabled
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               placeholder="Nhập lãi"
             />
           </Form.Item>
@@ -216,7 +208,7 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
             rules={[
               {
                 required: true,
-                message: "Chọn ngày vay!",
+                message: 'Chọn ngày vay!',
               },
             ]}
             initialValue={detail?.fromDate ? moment(detail?.fromDate) : null}
@@ -231,6 +223,7 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
           <Form.Item
             name="note"
             label="Ghi chú"
+            className="note"
             rules={[
               {
                 required: false,

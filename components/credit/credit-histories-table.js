@@ -1,7 +1,5 @@
 import {
   ArrowRightOutlined,
-  // CheckOutlined,
-  // CloseOutlined,
 } from "@ant-design/icons";
 import { useMutation } from "@apollo/client";
 import { Checkbox, Input, Popconfirm, Table } from "antd";
@@ -13,16 +11,10 @@ import {
 } from "../../helpers/common";
 import {
   GET_CREDITS,
-  // GET_INSTALMENTS,
   MAKE_PAYMENT,
-  // UPDATE_NOTE,
 } from "./query";
 
-// const { TextArea } = Input;
-
 function CreditHistoriesTable({ detail }) {
-  // const [editId, setEditedId] = useState(null);
-  // const [editData, setEditedData] = useState(null);
   const [dataSource, setDataSource] = useState(
     detail?.mortgageContractSchedule || []
   );
@@ -46,16 +38,6 @@ function CreditHistoriesTable({ detail }) {
       },
     })
   );
-
-  // const [updateNote] = useMutation(
-  //   UPDATE_NOTE,
-  //   handleResponse({
-  //     onSuccess: () => {
-  //       setEditedId(null);
-  //     },
-  //   })
-  // );
-
 
   const checkedInstalment = (record) => {
     if (!record) return;
@@ -142,46 +124,6 @@ function CreditHistoriesTable({ detail }) {
         );
       },
     },
-    // {
-    //   title: "Ghi chú",
-    //   dataIndex: "note",
-    //   render: (value, record, index) => {
-    //     return (
-    //       <>
-    //         <div className="text-right">
-    //           <TextArea
-    //             placeholder="Nhập ghi chú"
-    //             autoSize
-    //             onChange={(e) => {
-    //               if (!e) return;
-    //               setEditedId(record.id), setEditedData(e.target.value);
-    //             }}
-    //             value={editData && editId === record.id ? editData : value}
-    //           />
-    //           {!!editId && editId === record.id && (
-    //             <>
-    //               <CheckOutlined
-    //                 style={{
-    //                   color: "var(--textPrimary)",
-    //                   fontSize: "16px",
-    //                   marginRight: "10px",
-    //                 }}
-    //                 onClick={() => handleOnUpdateNote(record?.id, editData)}
-    //               />
-    //               <CloseOutlined
-    //                 style={{ color: "red", fontSize: "16px" }}
-    //                 onClick={() => {
-    //                   setEditedData(null);
-    //                   setEditedId(null);
-    //                 }}
-    //               />
-    //             </>
-    //           )}
-    //         </div>
-    //       </>
-    //     );
-    //   },
-    // },
   ];
 
   useEffect(() => {
@@ -192,14 +134,14 @@ function CreditHistoriesTable({ detail }) {
 
   return (
     <>
-      <div className="text-center text-lg font-bold mt-6 mb-2 text-i">
+      <div className="sm:text-center text-left sm:text-lg text-base font-bold mt-6 mb-2 text-i">
         Lịch sử đóng tiền lãi
       </div>
       <Table
         columns={columns}
         dataSource={dataSource}
         bordered
-        className="overflow-auto"
+        className="overflow-auto sm:text-lg text-base "
       />
     </>
   );

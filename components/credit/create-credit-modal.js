@@ -2,7 +2,6 @@ import { useMutation } from '@apollo/client';
 import { Button, DatePicker, Form, Input, InputNumber, Modal } from 'antd';
 import { CREATE_CREDIT, GET_CREDITS } from './query';
 import { handleResponse } from '../../helpers/common';
-import moment from 'moment';
 
 const layout = {
   labelCol: {
@@ -210,7 +209,7 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
               },
             ]}
           >
-            <TextArea placeholder="Nhập ghi chú" allowClear className="" />
+            <TextArea placeholder="Nhập ghi chú" allowClear />
           </Form.Item>
         </Form>
       </Modal>

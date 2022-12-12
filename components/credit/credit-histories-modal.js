@@ -1,16 +1,16 @@
-import { Modal, Tag } from "antd";
-import { formatCurrency, formatDDMMYYYY } from "../../helpers/common";
-import { INSTALMENT_STATUS_COLOR, CREDIT_STATUS_LABEL } from "../common";
-import CreditHistoriesTable from "./credit-histories-table";
+import { Modal, Tag } from 'antd';
+import { formatCurrency, formatDDMMYYYY } from '../../helpers/common';
+import { INSTALMENT_STATUS_COLOR, CREDIT_STATUS_LABEL } from '../common';
+import CreditHistoriesTable from './credit-histories-table';
 
 const CreditDetail = ({ detail }) => {
   return (
-    <div className="flex flex-row gap-8 instalment-detail">
+    <div className="flex flex-row gap-8 instalment-detail overflow-x-auto">
       <div className="flex flex-col w-full">
         <table class="table-auto border ">
           <tbody>
             <tr className="border">
-              <td className="font-bold">{detail?.customerName || ""}</td>
+              <td className="font-bold">{detail?.customerName || ''}</td>
             </tr>
             <tr className="border">
               <td className="border font-bold">Tiền vay</td>
@@ -23,7 +23,7 @@ const CreditDetail = ({ detail }) => {
               <td className="border font-bold">Lãi suất</td>
               <td className="border"></td>
               <td className="border text-right">
-                {formatCurrency(detail?.interest )}/1 triệu
+                {formatCurrency(detail?.interest)}/1 triệu
               </td>
             </tr>
             <tr className="border">
@@ -86,7 +86,7 @@ function CreditHistoriesModal({ isModalOpen, handleOk, closeModal, detail }) {
         open={isModalOpen}
         width={1000}
         title={
-          <div className="text-center uppercase">
+          <div className="sm:text-center uppercase text-left text-base sm:text-lg">
             Chi tiết hợp đồng vay tiền
           </div>
         }
@@ -94,8 +94,8 @@ function CreditHistoriesModal({ isModalOpen, handleOk, closeModal, detail }) {
         onCancel={closeModal}
         footer={[]}
       >
-        <CreditDetail detail={detail} />
-        <CreditHistoriesTable detail={detail} />
+          <CreditDetail detail={detail} />
+          <CreditHistoriesTable detail={detail} />
       </Modal>
     </>
   );
