@@ -1,15 +1,12 @@
-import { useMutation } from "@apollo/client";
-import { Button, DatePicker, Form, Input, InputNumber, Modal } from "antd";
-import { CREATE_CREDIT, GET_CREDITS } from "./query";
-import { handleResponse } from "../../helpers/common";
-import moment from "moment";
+import { useMutation } from '@apollo/client';
+import { Button, DatePicker, Form, Input, InputNumber, Modal } from 'antd';
+import { CREATE_CREDIT, GET_CREDITS } from './query';
+import { handleResponse } from '../../helpers/common';
+import moment from 'moment';
 
 const layout = {
   labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
+    span: 9,
   },
 };
 
@@ -65,7 +62,7 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
         onOk={handleOk}
         onCancel={onClose}
         footer={[
-          <div className="text-center">
+          <div className="text-center form-footer">
             <Button type="default" onClick={onClose}>
               Đóng
             </Button>
@@ -79,13 +76,13 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
           {...layout}
           form={form}
           name="control-hooks"
-          className="mt-8 flex flex-col align-center w-10/12 gap-2"
+          className="mt-8 sm:mr-24 mx-auto flex flex-col align-center w-full sm:w-10/12 gap-2"
           onFinish={onFinish}
         >
           <Form.Item
             name="customerName"
             label="Tên khách hàng"
-            rules={[{ required: true, message: "Nhập tên khách hàng!" }]}
+            rules={[{ required: true, message: 'Nhập tên khách hàng!' }]}
           >
             <Input placeholder="Nhập tên khách hàng" />
           </Form.Item>
@@ -105,7 +102,7 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
           <Form.Item
             name="totalMoney"
             label="Tổng số tiền vay"
-            rules={[{ required: true, message: "Nhập số tiền vay!" }]}
+            rules={[{ required: true, message: 'Nhập số tiền vay!' }]}
           >
             <InputNumber
               placeholder="Nhập số tiền vay"
@@ -114,9 +111,11 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
                   VNĐ
                 </Form.Item>
               }
-              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              formatter={(value) =>
+                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              }
               parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
             />
           </Form.Item>
 
@@ -127,7 +126,7 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
           <Form.Item
             name="loanTime"
             label="Số ngày vay"
-            rules={[{ required: true, message: "Nhập Số ngày vay!" }]}
+            rules={[{ required: true, message: 'Nhập Số ngày vay!' }]}
           >
             <InputNumber
               placeholder="Nhập Số ngày vay"
@@ -136,7 +135,7 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
                   Ngày
                 </Form.Item>
               }
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
             />
           </Form.Item>
 
@@ -146,7 +145,7 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
             rules={[
               {
                 required: true,
-                message: "Nhập Kỳ lãi!",
+                message: 'Nhập Kỳ lãi!',
               },
             ]}
           >
@@ -156,7 +155,7 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
                   Ngày
                 </Form.Item>
               }
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               placeholder="Nhập kỳ lãi"
               max={1000}
               min={0}
@@ -169,7 +168,7 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
             rules={[
               {
                 required: true,
-                message: "Nhập lãi!",
+                message: 'Nhập lãi!',
               },
             ]}
           >
@@ -179,9 +178,11 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
                   k/1 triệu
                 </Form.Item>
               }
-              formatter={(value) => `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+              formatter={(value) =>
+                `${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+              }
               parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-              style={{ width: "100%" }}
+              style={{ width: '100%' }}
               placeholder="Nhập lãi"
             />
           </Form.Item>
@@ -192,7 +193,7 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
             rules={[
               {
                 required: true,
-                message: "Chọn ngày vay!",
+                message: 'Chọn ngày vay!',
               },
             ]}
           >
@@ -202,13 +203,14 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
           <Form.Item
             name="note"
             label="Ghi chú"
+            className="note"
             rules={[
               {
                 required: false,
               },
             ]}
           >
-            <TextArea placeholder="Nhập ghi chú" allowClear />
+            <TextArea placeholder="Nhập ghi chú" allowClear className="" />
           </Form.Item>
         </Form>
       </Modal>

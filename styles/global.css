@@ -65,9 +65,9 @@ body {
 }
 
 button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
+[type='button'],
+[type='reset'],
+[type='submit'] {
   appearance: button;
   background-image: none;
 }
@@ -213,7 +213,7 @@ button,
 .login-body {
   width: 100%;
   height: 100%;
-  font-family: "Open Sans", sans-serif;
+  font-family: 'Open Sans', sans-serif;
   background: #092756;
   background: -moz-radial-gradient(
       0% 100%,
@@ -287,11 +287,31 @@ button,
 
 /* end login */
 
-
-.instalment-detail td { 
-  padding: 8px
+.instalment-detail td {
+  padding: 8px;
 }
 
 .total-table .ant-table-row:last-child {
   font-weight: bold;
+}
+
+@media only screen and (max-width: 480px) {
+  .ant-form-item-row {
+    flex-flow: column !important;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .ant-form-item-label {
+    overflow: unset !important;
+    text-align: left !important;
+  }
+  .note .ant-form-item-label {
+    margin-bottom: 10px;
+  }
+  .ant-picker {
+    width: 100%;
+  }
+  .form-footer { 
+    margin-top: 24px
+  }
 }

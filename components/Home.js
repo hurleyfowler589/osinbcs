@@ -60,7 +60,7 @@ const Home = () => {
                 }
               )}
             </div>
-            <div className="flex gap-3 mr-8">
+            <div className="gap-3 mr-8 hidden sm:flex">
               <div>
                 <Avatar
                   style={{

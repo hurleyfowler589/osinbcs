@@ -13,7 +13,7 @@ function Credit() {
   return (
     <Card className="m-4 h-full">
       <p className="mb-2 text-lg font-semibold">Hợp đồng Tín Chấp</p>
-      <div className="flex justify-between mb-4">
+      <div className="flex justify-between mb-4 overflow-x-hidden">
         <Button onClick={() => createCreditContext.openModal()} type="primary">
           Thêm hợp đồng
         </Button>
