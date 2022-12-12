@@ -1,25 +1,24 @@
-import { useState, createElement } from "react";
-import { Avatar, Dropdown, Layout, Menu, Space } from "antd";
+import { useState, createElement } from 'react';
+import { Avatar, Dropdown, Layout, Menu } from 'antd';
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   DollarCircleOutlined,
   CreditCardOutlined,
   UserOutlined,
-  DownOutlined,
-} from "@ant-design/icons";
-import Credit from "./credit";
-import Instalment from "./instalment";
-import withToast from "./hoc/with-toast";
+} from '@ant-design/icons';
+import Credit from './credit';
+import Instalment from './instalment';
+import withToast from './hoc/with-toast';
 
 const { Header, Sider } = Layout;
 
 const Home = () => {
   const [collapsed, setCollapsed] = useState(false);
-  const [selected, setSelected] = useState("credit");
+  const [selected, setSelected] = useState('credit');
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout style={{ minHeight: '100vh' }}>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="my-8 font-bold text-lg text-white text-center">
           ADMIN
@@ -31,14 +30,14 @@ const Home = () => {
           onSelect={({ key }) => setSelected(key)}
           items={[
             {
-              key: "credit",
+              key: 'credit',
               icon: <DollarCircleOutlined />,
-              label: "Tín Chấp",
+              label: 'Tín Chấp',
             },
             {
-              key: "instalment",
+              key: 'instalment',
               icon: <CreditCardOutlined />,
-              label: "Trả góp",
+              label: 'Trả góp',
             },
           ]}
         />
@@ -55,53 +54,51 @@ const Home = () => {
               {createElement(
                 collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
                 {
-                  className: "trigger",
+                  className: 'trigger',
                   onClick: () => setCollapsed(!collapsed),
                 }
               )}
             </div>
-            <div className="gap-3 mr-8 hidden sm:flex">
-              <div>
-                <Avatar
-                  style={{
-                    verticalAlign: "middle",
-                    backgroundColor: "var(--textPrimary)",
-                  }}
-                  icon={<UserOutlined />}
-                />
-              </div>
+            <div className="gap-3 mr-8 ">
               <Dropdown
                 menu={{
                   items: [
                     {
-                      label: <a href="/login" onClick={() => {
-                        // remove token
-                        localStorage.removeItem('token')
-                      }}>Thoát</a>,
-                      key: "0",
+                      label: (
+                        <a
+                          href="/login"
+                          onClick={() => {
+                            // remove token
+                            localStorage.removeItem('token');
+                          }}
+                        >
+                          Thoát
+                        </a>
+                      ),
+                      key: '0',
                     },
                   ],
                 }}
-                trigger={["click"]}
+                trigger={['click']}
               >
                 <a onClick={(e) => e.preventDefault()}>
-                  <Space>
-                    Admin{" "}
-                    <DownOutlined className="text-[10px] align-middle" />
-                  </Space>
+                  <Avatar
+                    className="align-middle bg-[var(--textPrimary)] mr-2"
+                    icon={<UserOutlined />}
+                  /><span className="hidden sm:contents">Admin</span>
                 </a>
               </Dropdown>
             </div>
           </div>
         </Header>
+        {
           {
-            {
-              credit: <Credit />,
-              instalment: <Instalment />,
-            }[selected]
-          }
+            credit: <Credit />,
+            instalment: <Instalment />,
+          }[selected]
+        }
       </Layout>
     </Layout>
   );
 };
-export default  withToast(Home);
+export default withToast(Home);
