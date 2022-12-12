@@ -1,0 +1,8 @@
+node_modules/
+__test__/
+.husky
+.commitlintrc.json
+.eslintignore
+.eslintrc.js
+.prettierrc
+README.md
