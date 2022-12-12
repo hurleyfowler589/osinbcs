@@ -5,12 +5,12 @@ import CreditHistoriesTable from './credit-histories-table';
 
 const CreditDetail = ({ detail }) => {
   return (
-    <div className="flex flex-row gap-8 instalment-detail overflow-x-auto">
+    <div className="flex flex-col sm:flex-row gap-8 instalment-detail overflow-x-auto">
       <div className="flex flex-col w-full">
         <table class="table-auto border ">
           <tbody>
             <tr className="border">
-              <td className="font-bold">{detail?.customerName || ''}</td>
+              <td className="font-bold" colspan="3">{detail?.customerName || ''}</td>
             </tr>
             <tr className="border">
               <td className="border font-bold">Tiền vay</td>

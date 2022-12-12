@@ -1,5 +1,4 @@
 import { Button, Space, Table, Tag } from "antd";
-import moment from "moment";
 import { GET_INSTALMENTS } from "./query";
 import { useQuery } from "@apollo/client";
 import Loading from "../common/Loading";
@@ -7,7 +6,6 @@ import { DeleteInstalmentConfirm } from "./delete-instalment-confirm";
 import {
   ArrowRightOutlined,
   EditFilled,
-  EditOutlined,
   SolutionOutlined,
 } from "@ant-design/icons";
 import withEditInstalmentModal from "../hoc/instalment/with-edit-instalment-modal";

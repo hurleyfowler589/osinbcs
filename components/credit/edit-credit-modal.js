@@ -3,13 +3,8 @@ import moment from 'moment';
 import { Button, DatePicker, Form, Input, InputNumber, Modal } from 'antd';
 import { UPDATE_CREDIT } from './query';
 import { handleResponse } from '../../helpers/common';
-import { useEffect, useMemo } from 'react';
-
-const layout = {
-  labelCol: {
-    span: 9,
-  },
-};
+import { useEffect } from 'react';
+import { formLayout } from '../common';
 
 const { TextArea } = Input;
 
@@ -76,10 +71,10 @@ function EditCreditModal({ isModalOpen, handleOk, closeModal, detail = {} }) {
         ]}
       >
         <Form
-          {...layout}
+          {...formLayout}
           form={form}
           name="control-hooks"
-          className="mt-8 sm:mr-24 mx-auto flex flex-col align-center w-full sm:w-10/12 gap-2"
+          className="mt-4 sm:mt-8 sm:mr-24 mx-auto flex flex-col align-center w-full sm:w-10/12 gap-1"
           onFinish={onFinish}
         >
           <Form.Item

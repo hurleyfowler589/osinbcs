@@ -1,17 +1,8 @@
 import { useMutation } from "@apollo/client";
-import moment from "moment";
 import { Button, DatePicker, Form, Input, InputNumber, Modal } from "antd";
 import { CREATE_INSTALMENT, GET_INSTALMENTS } from "./query";
 import { handleResponse } from "../../helpers/common";
-
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
+import { formLayout } from "../common";
 
 const { TextArea } = Input;
 
@@ -66,7 +57,7 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
         onOk={handleOk}
         onCancel={onClose}
         footer={[
-          <div className="text-center">
+          <div className="text-center form-footer">
             <Button
               type="default"
               onClick={onClose}
@@ -80,10 +71,10 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
         ]}
       >
         <Form
-          {...layout}
+         {...formLayout}
           form={form}
           name="control-hooks"
-          className="mt-8 flex flex-col align-center w-10/12 gap-2"
+          className="mt-4 sm:mt-8 sm:mr-24 mx-auto flex flex-col align-center w-full sm:w-10/12 gap-1"
           onFinish={onFinish}
         >
           <Form.Item
@@ -208,6 +199,7 @@ function CreateInstalmentModal({ isModalOpen, handleOk, closeModal }) {
           <Form.Item
             name="note"
             label="Ghi chú"
+            className="note"
             rules={[
               {
                 required: false,

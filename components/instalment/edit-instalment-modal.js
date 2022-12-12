@@ -1,18 +1,10 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useEffect } from "react";
 import moment from "moment";
+import { useMutation } from "@apollo/client";
 import { Button, DatePicker, Form, Input, InputNumber, Modal } from "antd";
-import { GET_INSTALMENT_DETAIL, UPDATE_INSTALMENT } from "./query";
 import { handleResponse } from "../../helpers/common";
-import { useEffect, useMemo } from "react";
-
-const layout = {
-  labelCol: {
-    span: 8,
-  },
-  wrapperCol: {
-    span: 16,
-  },
-};
+import { formLayout } from "../common";
+import {  UPDATE_INSTALMENT } from "./query";
 
 const { TextArea } = Input;
 
@@ -72,9 +64,8 @@ function EditInstalmentModal({
         onOk={onClose}
         onCancel={onClose}
         destroyOnClose={true}
-        // maskClosable={false}
         footer={[
-          <div className="text-center">
+          <div className="text-center form-footer">
             <Button type="default" onClick={onClose}>
               Đóng
             </Button>
@@ -85,10 +76,10 @@ function EditInstalmentModal({
         ]}
       >
         <Form
-          {...layout}
+          {...formLayout}
           form={form}
           name="control-hooks"
-          className="mt-8 flex flex-col align-center w-10/12 gap-2"
+          className="mt-4 sm:mt-8 sm:mr-24 mx-auto flex flex-col align-center w-full sm:w-10/12 gap-1"
           onFinish={onFinish}
         >
           <Form.Item
@@ -228,6 +219,7 @@ function EditInstalmentModal({
           <Form.Item
             name="note"
             label="Ghi chú"
+            className="note"
             rules={[
               {
                 required: false,

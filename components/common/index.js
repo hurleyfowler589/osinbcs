@@ -18,3 +18,9 @@ export const CREDIT_STATUS_LABEL = {
   delay: "Nợ lãi",
   expired: "Quá hạn",
 }
+
+export const formLayout = {
+  labelCol: {
+    span: 9,
+  },
+};

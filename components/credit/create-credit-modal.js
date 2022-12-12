@@ -2,12 +2,7 @@ import { useMutation } from '@apollo/client';
 import { Button, DatePicker, Form, Input, InputNumber, Modal } from 'antd';
 import { CREATE_CREDIT, GET_CREDITS } from './query';
 import { handleResponse } from '../../helpers/common';
-
-const layout = {
-  labelCol: {
-    span: 9,
-  },
-};
+import { formLayout } from '../common';
 
 const { TextArea } = Input;
 
@@ -72,10 +67,10 @@ function CreateCreditModal({ isModalOpen, handleOk, closeModal }) {
         ]}
       >
         <Form
-          {...layout}
+          {...formLayout}
           form={form}
           name="control-hooks"
-          className="mt-8 sm:mr-24 mx-auto flex flex-col align-center w-full sm:w-10/12 gap-2"
+          className="mt-4 sm:mt-8 sm:mr-24 mx-auto flex flex-col align-center w-full sm:w-10/12 gap-1"
           onFinish={onFinish}
         >
           <Form.Item
