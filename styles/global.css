@@ -103,7 +103,6 @@ button,
   align-items: center;
 }
 
-
 .instalment-detail td {
   padding: 8px;
 }
@@ -128,7 +127,7 @@ button,
   .ant-picker {
     width: 100%;
   }
-  .form-footer { 
-    margin-top: 24px
+  .form-footer {
+    margin-top: 24px;
   }
 }
