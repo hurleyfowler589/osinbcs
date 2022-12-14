@@ -72,6 +72,12 @@ const CreditDetail = ({ detail }) => {
                 </Tag>
               </td>
             </tr>
+            <tr className="border">
+              <td className="font-bold">Ghi chú</td>
+              <td className="border text-right">
+                {detail?.note}
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>

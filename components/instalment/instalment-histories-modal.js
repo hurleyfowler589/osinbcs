@@ -35,6 +35,12 @@ const InstalmentDetail = ({ detail }) => {
                 {formatDDMMYYYY(detail?.toDate)}
               </td>
             </tr>
+            <tr className="border">
+              <td className="border font-bold">Ghi chú</td>
+              <td className="border text-right" colSpan="2">
+                {detail?.note}
+              </td>
+            </tr>
             {/* <tr className="border">
               <td className="border font-bold">Nợ cũ KH</td>
               <td className="border"></td>
