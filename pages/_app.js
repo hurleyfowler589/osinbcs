@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
     <ApolloProvider client={client}>
       <ConfigProvider locale={locale}>
         <Head>
-          <title>Credit App</title>
+          <title>Credit App 22222</title>
           <link href="/dist/output.css" rel="stylesheet" />
         </Head>
         <Component {...pageProps} />
