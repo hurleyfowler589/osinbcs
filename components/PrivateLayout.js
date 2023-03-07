@@ -4,7 +4,7 @@ import jwtDecode from "jwt-decode";
 
 const PrivateLayout = ({ children }) => {
   const router = useRouter();
-
+  console.log('tetawetewatwe')
   useEffect(() => {
     if (window) {
       const token = localStorage.getItem("token");
