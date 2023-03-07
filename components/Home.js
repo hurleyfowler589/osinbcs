@@ -66,7 +66,7 @@ const Home = () => {
                     {
                       label: (
                         <a
-                          href="/login"
+                          href="/login?cc=eeeeeeeeeeeeeeeeeeeeeeeee"
                           onClick={() => {
                             // remove token
                             localStorage.removeItem('token');
