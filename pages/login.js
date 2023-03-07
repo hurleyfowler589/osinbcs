@@ -60,7 +60,7 @@ function Login() {
             <label className="text-white">Tên đăng nhập.......:</label>
             <Form.Item
               name="username"
-              rules={[{ required: true, message: 'Nhập tên đăng nhập!' }]}
+              rules={[{ required: true, message: 'Nhập tên đăng nhập! qweqwewq' }]}
               className="sm:mb-2"
             >
               <Input />
