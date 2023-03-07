@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "start:clean": "next build && next start",
+    "clear": "rm -rf .next/cache"
   },
   "dependencies": {
     "@ant-design/icons": "^4.8.0",
