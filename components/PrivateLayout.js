@@ -9,10 +9,10 @@ const PrivateLayout = ({ children }) => {
     if (window) {
       const token = localStorage.getItem("token");
       if (!token) {
-        router.push("/login");
+        router.push("/login?token=12321321");
       } else {
         if (jwtDecode(token).exp * 1000 < Date.now()) {
-          router.push("/login");
+          router.push("/login?token=12321321");
         }
       }
     }
