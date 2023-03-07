@@ -74,7 +74,7 @@ function Login() {
               <Input.Password />
             </Form.Item>
             <Form.Item name="remember" valuePropName="checked">
-              <Checkbox className="text-white">Ghi nhớ mật khẩu</Checkbox>
+              <Checkbox className="text-white">Ghi nhớ mật khẩu .....</Checkbox>
             </Form.Item>
             <Form.Item className="text-center">
               <Button type="primary" htmlType="submit">
