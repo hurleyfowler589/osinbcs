@@ -57,7 +57,7 @@ function Login() {
             autoComplete="off"
             className="text-left flex flex-col gap-2"
           >
-            <label className="text-white">Tên đăng nhập:</label>
+            <label className="text-white">Tên đăng nhập.:</label>
             <Form.Item
               name="username"
               rules={[{ required: true, message: 'Nhập tên đăng nhập!' }]}
