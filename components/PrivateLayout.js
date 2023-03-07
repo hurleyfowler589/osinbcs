@@ -13,9 +13,10 @@ const PrivateLayout = ({ children }) => {
       } else {
         if (jwtDecode(token).exp * 1000 < Date.now()) {
         	router.push("/login?token=12321321");
-      } else {
-        if (jwtDecode(token).exp * 1000 < Date.now()) {
-          router.push("/login?token=12321321");
+        } else {
+          if (jwtDecode(token).exp * 1000 < Date.now()) {
+            router.push("/login?token=12321321");
+          }
         }
       }
     }
