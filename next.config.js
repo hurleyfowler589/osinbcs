@@ -1,6 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true
+  reactStrictMode: true,
+  env: {
+    GRAPPLE_API_URI: process.env.GRAPPLE_API_URI,
+    GRAPPLE_API_GRAPHQL_PATH: process.env.GRAPPLE_API_GRAPHQL_PATH,
+  }
 }
 
 module.exports = nextConfig
