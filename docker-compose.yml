@@ -1,7 +1,7 @@
 version: '3.9'
 services:
   me-cash:
-    container_name: front-end
+    container_name: front-end-1
     restart: always
     build:
       context: .
